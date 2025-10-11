@@ -10,7 +10,6 @@
 - **Backend:** NestJS (Node.js)
 - **WebSocket-based multiplayer**
 - **Real-time gameplay**
-- **Lobby and matchmaking system**
 
 ---
 
@@ -31,9 +30,9 @@
 
 Tressette uses a 40-card Italian deck:
 
-Suits: Coins (Denari), Cups (Coppe), Swords (Spade), Clubs (Bastoni)
+Suits: Coins, Cups, Swords, Clubs
 
-Cards per suit: Ace, 2, 3, 4, 5, 6, 7, Knave (Fante), Knight (Cavallo), King (Re)
+Cards per suit: Ace, 2, 3, 4, 5, 6, 7, Knave, Knight, King
 
 No 8s, 9s, or 10s are used.
 
