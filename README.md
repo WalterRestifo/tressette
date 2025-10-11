@@ -1,6 +1,107 @@
-# Tressette
+# 🃏 Tressette Online
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.17.
+**Tressette Online** is a web-based implementation of the classic Italian card game **Tressette**, built using Angular for the frontend and NestJS for the backend. Play 1v1 matches against real players over the internet.
+
+---
+
+## 📦 Tech Stack
+
+- **Frontend:** Angular
+- **Backend:** NestJS (Node.js)
+- **WebSocket-based multiplayer**
+- **Real-time gameplay**
+- **Lobby and matchmaking system**
+
+---
+
+## 🚀 Features
+
+- ✅ Real-time 2-player online gameplay
+- ✅ WebSocket communication for low-latency interaction
+- ✅ Standard 40-card Italian deck
+- ✅ Basic lobby system for creating or joining matches
+- ✅ Enforced rules and card logic
+- ✅ Responsive design (desktop & mobile browsers)
+
+---
+
+## 📘 Game Rules & Scoring
+
+### 🃏 The Deck
+
+Tressette uses a 40-card Italian deck:
+
+Suits: Coins (Denari), Cups (Coppe), Swords (Spade), Clubs (Bastoni)
+
+Cards per suit: Ace, 2, 3, 4, 5, 6, 7, Knave (Fante), Knight (Cavallo), King (Re)
+
+No 8s, 9s, or 10s are used.
+
+### 📊 Card Ranking (Highest to Lowest)
+
+| Rank | Card             |
+| ---- | ---------------- |
+| 1️⃣   | 3                |
+| 2️⃣   | 2                |
+| 3️⃣   | Ace (Asso)       |
+| 4️⃣   | King (Re)        |
+| 5️⃣   | Knight (Cavallo) |
+| 6️⃣   | Knave (Fante)    |
+| 7️⃣   | 7                |
+| 8️⃣   | 6                |
+| 9️⃣   | 5                |
+| 🔟   | 4                |
+
+Players must follow the suit that was led. The highest card of the led suit wins the trick.
+
+🎮 Gameplay
+
+Each player is dealt 10 cards.
+
+The non-dealer starts the first trick.
+
+Players take turns playing one card per trick.
+
+You must follow suit if possible.
+
+The winner of each trick leads the next one.
+
+After each trick each player takes a card from the deck. The winner of the trick takes the card as first.
+
+After the deck is empty, the players don`t take any more cards after the tricks.
+
+After all cards are played, the round ends and scoring begins.
+
+### 🧮 Scoring
+
+Only specific cards are worth points:
+
+| Card   | Value     |
+| ------ | --------- |
+| Ace    | 1 point   |
+| 3      | 1/3 point |
+| 2      | 1/3 point |
+| King   | 1/3 point |
+| Knight | 1/3 point |
+| Knave  | 1/3 point |
+| 4–7    | 0 points  |
+
+✅ 1 extra point is awarded to the player who wins the last trick.
+
+📌 Total points per round: 11
+
+👥 Authors
+
+Walter Restifo
+
+### 🔧 Installation
+
+1. **Clone the repo**:
+
+````bash
+git clone https://github.com/yourusername/tressette-online.git
+cd tressette-online
+
 
 ## Development server
 
@@ -8,52 +109,6 @@ To start a local development server, run:
 
 ```bash
 ng serve
-```
+````
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
