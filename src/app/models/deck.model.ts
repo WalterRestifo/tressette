@@ -2,29 +2,27 @@ import { DeckSingleCard } from './deck-single-card.model';
 import { CardPointValueEnum, CardSuitEnum } from './enums';
 import { cardGameValueMap, cardPointValueMap } from './constants';
 
-export class Deck {
+export class DeckClass {
   deck: DeckSingleCard[] = [];
-  initialise = this.initialiseDeck();
-  shuffle = this.shuffleDeck(this.deck);
 
-  private initialiseDeck() {
+  initialiseDeck() {
     const suits = Object.values(CardSuitEnum);
     suits.map((suit) => {
       for (let cardNumber = 1; cardNumber <= 10; cardNumber++) {
         this.deck.push(
           new DeckSingleCard({
-            suit: suit,
             gameValue: cardGameValueMap.get(cardNumber) as number,
             numberValue: cardNumber,
             pointValue: cardPointValueMap.get(cardNumber) as CardPointValueEnum,
+            suit: suit,
           })
         );
       }
     });
   }
 
-  private shuffleDeck(deck: DeckSingleCard[]) {
-    let currentIndex = deck.length;
+  shuffleDeck() {
+    let currentIndex = this.deck.length;
 
     // While there remain elements to shuffle...
     while (currentIndex != 0) {
@@ -33,9 +31,9 @@ export class Deck {
       currentIndex--;
 
       // And swap it with the current element.
-      [deck[currentIndex], deck[randomIndex]] = [
-        deck[randomIndex],
-        deck[currentIndex],
+      [this.deck[currentIndex], this.deck[randomIndex]] = [
+        this.deck[randomIndex],
+        this.deck[currentIndex],
       ];
     }
   }

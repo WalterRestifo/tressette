@@ -1,6 +1,6 @@
 import { CardPointValueEnum, CardSuitEnum } from './enums';
 
-type DeckSingleCardType = {
+export type DeckSingleCardType = {
   gameValue: number;
   numberValue: number;
   pointValue: CardPointValueEnum;

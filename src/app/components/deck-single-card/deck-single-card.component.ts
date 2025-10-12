@@ -1,9 +1,21 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
+import { DeckSingleCardType } from '../../models/deck-single-card.model';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-deck-single-card',
-  imports: [],
+  imports: [MatCardModule],
   templateUrl: './deck-single-card.component.html',
   styleUrl: './deck-single-card.component.scss',
 })
-export class DeckSingleCardComponent {}
+export class DeckSingleCardComponent {
+  data = input.required<DeckSingleCardType>();
+
+  get numberValue() {
+    return this.data().numberValue;
+  }
+
+  get suit() {
+    return this.data().suit;
+  }
+}

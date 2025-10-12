@@ -1,12 +1,26 @@
-import { Component, signal } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { GameManagerService } from './services/game-manager.service';
+import { Player } from './models/player.model';
+import { DeckSingleCardComponent } from './components/deck-single-card/deck-single-card.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, DeckSingleCardComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
   title = 'tressette';
+  player1: Player = new Player('placeholder');
+  player2: Player = new Player('Placeholder');
+
+  get hand1() {
+    return this.player1.hand;
+  }
+
+  constructor(private gameManager: GameManagerService) {
+    this.player1 = gameManager.player1;
+    this.player2 = gameManager.player2;
+  }
 }

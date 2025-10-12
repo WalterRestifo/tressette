@@ -1,3 +1,10 @@
 <h1>Hello {{ title }}</h1>
+<ul>
+  @for(card of hand1; track (card.data.numberValue + card.data.suit)){
+  <li>
+    <app-deck-single-card [data]="card.data" />
+  </li>
+  }
+</ul>
 
 <router-outlet />
