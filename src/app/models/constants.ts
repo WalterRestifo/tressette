@@ -27,7 +27,7 @@ export const cardGameValueMap = new Map([
   King = 6,
 } */
 
-export const CardPointValueMap = new Map([
+export const cardPointValueMap = new Map([
   [1, CardPointValueEnum.Full],
   [2, CardPointValueEnum.Third],
   [3, CardPointValueEnum.Third],
