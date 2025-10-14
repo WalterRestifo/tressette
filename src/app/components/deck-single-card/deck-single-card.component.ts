@@ -6,7 +6,6 @@ import { MatCardModule } from '@angular/material/card';
   selector: 'app-deck-single-card',
   imports: [MatCardModule],
   templateUrl: './deck-single-card.component.html',
-  styleUrl: './deck-single-card.component.scss',
 })
 export class DeckSingleCardComponent {
   data = input.required<DeckSingleCardType>();
