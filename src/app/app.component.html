@@ -1,6 +1,5 @@
 <h1>Hello {{ title }}</h1>
-<h1 class="text-3xl font-bold underline">Hello world!</h1>
-<ul>
+<ul class="list-none flex">
   @for(card of hand1; track (card.data.numberValue + card.data.suit)){
   <li>
     <app-deck-single-card [data]="card.data" />
