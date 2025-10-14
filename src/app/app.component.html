@@ -1,10 +1,19 @@
 <h1>Hello {{ title }}</h1>
-<ul class="list-none flex">
-  @for(card of hand1; track (card.data.numberValue + card.data.suit)){
-  <li>
-    <app-deck-single-card [data]="card.data" />
-  </li>
-  }
-</ul>
+<div class="flex flex-col justify-between h-full">
+  <ul class="list-none flex">
+    @for(card of hand1; track (card.data.numberValue + card.data.suit)){
+    <li>
+      <app-deck-single-card [data]="card.data" />
+    </li>
+    }
+  </ul>
+  <ul class="list-none flex">
+    @for(card of hand2; track (card.data.numberValue + card.data.suit)){
+    <li>
+      <app-deck-single-card [data]="card.data" />
+    </li>
+    }
+  </ul>
+</div>
 
 <router-outlet />

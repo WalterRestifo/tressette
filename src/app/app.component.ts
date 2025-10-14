@@ -19,6 +19,10 @@ export class AppComponent {
     return this.player1.hand;
   }
 
+  get hand2() {
+    return this.player2.hand;
+  }
+
   constructor(private gameManager: GameManagerService) {
     this.player1 = gameManager.player1;
     this.player2 = gameManager.player2;

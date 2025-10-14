@@ -2,6 +2,8 @@
   >{{ data.suit }} and {{ data.numberValue }}</mat-dialog-content
 >
 <mat-dialog-actions align="end">
-  <button matButton (click)="closeDialog()">Cancel</button>
-  <button matButton cdkFocusInitial (click)="closeDialog()">Play card</button>
+  <button matButton mat-dialog-close>Cancel</button>
+  <button matButton cdkFocusInitial (click)="playSingleCard(data)">
+    Play card
+  </button>
 </mat-dialog-actions>
