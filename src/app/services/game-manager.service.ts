@@ -111,8 +111,8 @@ export class GameManagerService {
 
     const newCard1 = this.deckClassInstance.takeNewCardFromDeck();
     const newCard2 = this.deckClassInstance.takeNewCardFromDeck();
-    if (newCard1) this.player1.hand.push();
-    if (newCard2) this.player2.hand.push();
+    if (newCard1) this.player1.hand.push(newCard1);
+    if (newCard2) this.player2.hand.push(newCard2);
   }
 
   playCard(card: DeckSingleCard, player: Player) {
