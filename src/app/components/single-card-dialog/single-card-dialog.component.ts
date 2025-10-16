@@ -7,12 +7,9 @@ import {
   MatDialogClose,
 } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-import { CardSuitEnum } from '../../models/enums';
-
-type CardData = {
-  numberValue: number;
-  suit: CardSuitEnum;
-};
+import { GameManagerService } from '../../services/game-manager.service';
+import { Player } from '../../models/player.model';
+import { DeckSingleCard } from '../../models/deck-single-card.model';
 
 @Component({
   selector: 'app-single-card-dialog',
@@ -27,8 +24,17 @@ type CardData = {
 export class SingleCardDialogComponent {
   data = inject(MAT_DIALOG_DATA);
   dialogRef = inject(MatDialogRef);
+  player: Player;
 
-  playSingleCard(cardData: CardData) {
-    this.dialogRef.close(cardData);
+  constructor(private gameManager: GameManagerService) {
+    if (this.gameManager.player1.isOwnTurn)
+      this.player = this.gameManager.player1;
+    else this.player = this.gameManager.player2;
+  }
+
+  playSingleCard(cardData: DeckSingleCard) {
+    this.dialogRef.close();
+    this.gameManager.playCard(cardData, this.player);
+    this.gameManager.updateTurn();
   }
 }

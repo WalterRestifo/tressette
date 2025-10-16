@@ -34,8 +34,6 @@ Suits: Coins, Cups, Swords, Clubs
 
 Cards per suit: Ace, 2, 3, 4, 5, 6, 7, Knave, Knight, King
 
-No 8s, 9s, or 10s are used.
-
 ### 📊 Card Ranking (Highest to Lowest)
 
 | Rank | Card             |

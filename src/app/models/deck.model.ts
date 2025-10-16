@@ -37,4 +37,13 @@ export class DeckClass {
       ];
     }
   }
+
+  /**
+   * Take a new card from deck, if the deck is not yet empty.
+   * @returns DeckSingleCard | undefined
+   */
+  takeNewCardFromDeck() {
+    if (this.deck.length > 0) return this.deck.splice(0, 1)[0];
+    else return undefined;
+  }
 }

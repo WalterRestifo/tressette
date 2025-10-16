@@ -1,19 +1,36 @@
 <h1>Hello {{ title }}</h1>
 <div class="flex flex-col justify-between h-full">
-  <ul class="list-none flex">
-    @for(card of hand1; track (card.data.numberValue + card.data.suit)){
-    <li>
-      <app-deck-single-card [data]="card.data" />
-    </li>
+  <div>
+    <h2>Points for player 1: {{ points1 }}</h2>
+    <ul class="list-none flex">
+      @for(card of hand1; track (card.data.numberValue + card.data.suit)){
+      <li>
+        <app-deck-single-card [data]="card.data" />
+      </li>
+      }
+    </ul>
+  </div>
+  <div>
+    <h2>Played cards</h2>
+    <h3>Player 1 played card</h3>
+    @if(card1){
+    <app-deck-single-card [data]="card1.data" />
     }
-  </ul>
-  <ul class="list-none flex">
-    @for(card of hand2; track (card.data.numberValue + card.data.suit)){
-    <li>
-      <app-deck-single-card [data]="card.data" />
-    </li>
+    <h3>Player 2 played card</h3>
+    @if(card2){
+    <app-deck-single-card [data]="card2.data" />
     }
-  </ul>
+  </div>
+  <div>
+    <h2>Points for player 2: {{ points2 }}</h2>
+    <ul class="list-none flex">
+      @for(card of hand2; track (card.data.numberValue + card.data.suit)){
+      <li>
+        <app-deck-single-card [data]="card.data" />
+      </li>
+      }
+    </ul>
+  </div>
 </div>
 
 <router-outlet />

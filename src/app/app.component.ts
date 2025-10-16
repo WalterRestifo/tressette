@@ -18,9 +18,20 @@ export class AppComponent {
   get hand1() {
     return this.player1.hand;
   }
-
   get hand2() {
     return this.player2.hand;
+  }
+  get points1() {
+    return this.player1.points;
+  }
+  get points2() {
+    return this.player2.points;
+  }
+  get card1() {
+    return this.player1.inThisTrickPlayedCard;
+  }
+  get card2() {
+    return this.player2.inThisTrickPlayedCard;
   }
 
   constructor(private gameManager: GameManagerService) {

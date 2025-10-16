@@ -24,13 +24,16 @@ export class DeckSingleCardComponent {
 
   openDialog() {
     const dialogRef = this.dialog.open(SingleCardDialogComponent, {
+      // This data is part of the dialog API of angular material
       data: {
-        numberValue: this.numberValue,
-        suit: this.suit,
+        // This data is needed because type DeckSingleCard needs data (like prop) TODO: rename it to prop or something similar
+        data: {
+          numberValue: this.numberValue,
+          suit: this.suit,
+          gameValue: this.data().gameValue,
+          pointValue: this.data().pointValue,
+        },
       },
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`);
     });
   }
 }
