@@ -32,6 +32,7 @@ export class DeckSingleCardComponent {
           suit: this.suit,
           gameValue: this.data().gameValue,
           pointValue: this.data().pointValue,
+          id: this.data().id,
         },
       },
     });

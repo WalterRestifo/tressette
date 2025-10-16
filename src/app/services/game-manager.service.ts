@@ -23,6 +23,7 @@ export class GameManagerService {
     numberValue: 0,
     pointValue: CardPointValueEnum.None,
     suit: CardSuitEnum.Coins,
+    id: -1,
   });
   firstPlayedCard: DeckSingleCard = this.placeHolderDeckSingleCard;
   secondPlayedCard: DeckSingleCard = this.placeHolderDeckSingleCard;
@@ -80,23 +81,33 @@ export class GameManagerService {
       );
     }
 
+    //wait 2 seconds, so that the players can see what cards were played, before the new trick begins
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
     const trickPoints =
       this.player1.inThisTrickPlayedCard!.data.pointValue +
       this.player2.inThisTrickPlayedCard!.data.pointValue;
 
     if (this.player1.inThisTrickPlayedCard === winnerCard) {
+      console.log('player1 wins');
       this.player1.points += trickPoints;
       this.leadingPlayer = this.player1;
+      // if player1 wins the trick, it plays first in the next trick
+      this.player1.isOwnTurn = true;
+      this.player2.isOwnTurn = false;
     } else {
+      console.log('player2 wins');
       this.player2.points += trickPoints;
       this.leadingPlayer = this.player2;
+      // if player2 wins the trick, it plays first in the next trick
+      this.player1.isOwnTurn = false;
+      this.player2.isOwnTurn = true;
     }
 
-    //wait 2 seconds, so that the players can see what cards were played, before the new trick begins
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    // in the new trick the player didn't play any card yet
+    // reset everything for the new trick TODO: make a method for it
     this.player1.inThisTrickPlayedCard = undefined;
     this.player2.inThisTrickPlayedCard = undefined;
+    this.leadingSuit = undefined;
 
     const newCard1 = this.deckClassInstance.takeNewCardFromDeck();
     const newCard2 = this.deckClassInstance.takeNewCardFromDeck();
@@ -105,6 +116,8 @@ export class GameManagerService {
   }
 
   playCard(card: DeckSingleCard, player: Player) {
+    // If it is the first played card in the trick, the card suit becomes the leading suit
+    if (this.$playedCardCount.value === 0) this.leadingSuit = card.data.suit;
     if (player.name === this.player1.name) {
       this.player1.inThisTrickPlayedCard = card;
       removeCardFromHand(this.player1);

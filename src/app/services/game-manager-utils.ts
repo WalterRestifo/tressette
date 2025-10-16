@@ -15,8 +15,10 @@ export const determineWinnerCard = (
 };
 
 export const removeCardFromHand = (player: Player) => {
-  const indexOfTheCard = player.hand.indexOf(
-    player.inThisTrickPlayedCard as DeckSingleCard
+  console.log('id of the played card: ', player.inThisTrickPlayedCard?.data.id);
+  const indexOfTheCard = player.hand.findIndex(
+    (cardOfHand) => cardOfHand.data.id === player.inThisTrickPlayedCard!.data.id
   );
+  console.log('index of the played card: ', indexOfTheCard);
   player.hand.splice(indexOfTheCard, 1);
 };

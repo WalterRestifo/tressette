@@ -3,7 +3,7 @@
   <div>
     <h2>Points for player 1: {{ points1 }}</h2>
     <ul class="list-none flex">
-      @for(card of hand1; track (card.data.numberValue + card.data.suit)){
+      @for(card of hand1; track card.data.id){
       <li>
         <app-deck-single-card [data]="card.data" />
       </li>
@@ -24,7 +24,7 @@
   <div>
     <h2>Points for player 2: {{ points2 }}</h2>
     <ul class="list-none flex">
-      @for(card of hand2; track (card.data.numberValue + card.data.suit)){
+      @for(card of hand2; track card.data.id){
       <li>
         <app-deck-single-card [data]="card.data" />
       </li>

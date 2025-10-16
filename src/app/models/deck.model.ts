@@ -7,6 +7,7 @@ export class DeckClass {
 
   initialiseDeck() {
     const suits = Object.values(CardSuitEnum);
+    let idValue = 0;
     suits.map((suit) => {
       for (let cardNumber = 1; cardNumber <= 10; cardNumber++) {
         this.deck.push(
@@ -15,8 +16,10 @@ export class DeckClass {
             numberValue: cardNumber,
             pointValue: cardPointValueMap.get(cardNumber) as CardPointValueEnum,
             suit: suit,
+            id: idValue,
           })
         );
+        idValue++;
       }
     });
   }

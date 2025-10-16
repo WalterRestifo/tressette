@@ -5,6 +5,7 @@ export type DeckSingleCardType = {
   numberValue: number;
   pointValue: CardPointValueEnum;
   suit: CardSuitEnum;
+  id: number;
 };
 
 export class DeckSingleCard {

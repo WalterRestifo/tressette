@@ -27,9 +27,11 @@ export class SingleCardDialogComponent {
   player: Player;
 
   constructor(private gameManager: GameManagerService) {
-    if (this.gameManager.player1.isOwnTurn)
+    if (this.gameManager.player1.isOwnTurn) {
       this.player = this.gameManager.player1;
-    else this.player = this.gameManager.player2;
+    } else {
+      this.player = this.gameManager.player2;
+    }
   }
 
   playSingleCard(cardData: DeckSingleCard) {
