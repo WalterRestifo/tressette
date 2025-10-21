@@ -14,6 +14,7 @@ export class AppComponent {
   title = 'tressette';
   player1: Player = new Player('placeholder');
   player2: Player = new Player('Placeholder');
+  currentPlayer: Player;
 
   get hand1() {
     return this.player1.hand;
@@ -37,5 +38,10 @@ export class AppComponent {
   constructor(private gameManager: GameManagerService) {
     this.player1 = gameManager.player1;
     this.player2 = gameManager.player2;
+    this.currentPlayer = gameManager.getCurrentPlayer();
+    // make the subscription to the own turn of a player (it is not relevant, what player)
+    this.player1.$isOwnTurn.subscribe(
+      () => (this.currentPlayer = gameManager.getCurrentPlayer())
+    );
   }
 }
