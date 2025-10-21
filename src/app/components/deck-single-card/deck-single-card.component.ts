@@ -1,46 +1,57 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, inject, input, OnDestroy, OnInit } from '@angular/core';
 import { DeckSingleCardType } from '../../models/deck-single-card.model';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { SingleCardDialogComponent } from '../single-card-dialog/single-card-dialog.component';
 import { GameManagerService } from '../../services/game-manager.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-deck-single-card',
   imports: [MatCardModule],
   templateUrl: './deck-single-card.component.html',
 })
-export class DeckSingleCardComponent {
-  checkIfPlayable: () => boolean;
+export class DeckSingleCardComponent implements OnInit, OnDestroy {
+  checkIfPlayable!: () => boolean;
 
   data = input.required<DeckSingleCardType>();
 
   dialog = inject(MatDialog);
 
-  constructor(gameManager: GameManagerService) {
-    const checkIfPlayable = () => {
-      const player = gameManager.getCurrentPlayer();
+  private gameManager = inject(GameManagerService);
+
+  private subscriptions = new Subscription();
+
+  ngOnInit(): void {
+    this.checkIfPlayable = () => {
+      const player = this.gameManager.getCurrentPlayer();
       const hand = player.hand;
       // If the first card of the trick was not yet played, every card can be played
-      if (gameManager.$leadingSuit.value === undefined) return true;
+      if (this.gameManager.$leadingSuit.value === undefined) return true;
 
       // If the player has some card of the same suit, he must follow the trick suit
       const hasSameSuitCards = hand.some(
-        (card) => card.data.suit === gameManager.$leadingSuit.value
+        (card) => card.data.suit === this.gameManager.$leadingSuit.value
       );
 
       // If the player has no cards of the leading suit, he can play every card
       if (
         !hasSameSuitCards ||
-        this.data().suit === gameManager.$leadingSuit.value
+        this.data().suit === this.gameManager.$leadingSuit.value
       ) {
         return true;
       } else {
         return false;
       }
     };
-    gameManager.$leadingSuit.subscribe(() => checkIfPlayable());
-    this.checkIfPlayable = checkIfPlayable;
+    const sub = this.gameManager.$leadingSuit.subscribe(() =>
+      this.checkIfPlayable()
+    );
+    this.subscriptions.add(sub);
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   get numberValue() {

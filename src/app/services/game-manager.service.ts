@@ -104,15 +104,16 @@ export class GameManagerService {
       this.player2.$isOwnTurn.next(true);
     }
 
-    // reset everything for the new trick TODO: make a method for it
-    this.player1.inThisTrickPlayedCard = undefined;
-    this.player2.inThisTrickPlayedCard = undefined;
-    this.$leadingSuit.next(undefined);
+    // reset everything for the new trick
+    this.resetTrick();
 
     const newCard1 = this.deckClassInstance.takeNewCardFromDeck();
     const newCard2 = this.deckClassInstance.takeNewCardFromDeck();
     if (newCard1) this.player1.hand.push(newCard1);
     if (newCard2) this.player2.hand.push(newCard2);
+
+    // when the players don't have any more card in the hand, the game is over
+    if (this.player1.hand.length === 0) this.endGame();
   }
 
   playCard(card: DeckSingleCard, player: Player) {
@@ -138,4 +139,13 @@ export class GameManagerService {
     if (this.player1.$isOwnTurn.value) return this.player1;
     else return this.player2;
   }
+
+  resetTrick() {
+    this.player1.inThisTrickPlayedCard = undefined;
+    this.player2.inThisTrickPlayedCard = undefined;
+    this.$leadingSuit.next(undefined);
+  }
+
+  //TODO: implement the end of the game
+  endGame() {}
 }
