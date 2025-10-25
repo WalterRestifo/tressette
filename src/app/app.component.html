@@ -1,6 +1,19 @@
+@if(isGameOver){
+<h2>Game Over</h2>
+<p>player {{ winner?.name }} won!</p>
+<p>
+  player {{ player1.name }} had {{ normalizePoints(player1.points) }} points
+</p>
+<p>
+  player {{ player2.name }} had {{ normalizePoints(player2.points) }} points
+</p>
+<button matButton="elevated" (click)="startNewGame()">play again</button>
+} @else {
+<button matButton="elevated" (click)="endGame()">end game</button>
+<button matButton="elevated" (click)="emitSomething()">emit something</button>
 <div class="flex flex-col justify-between h-full">
   <div>
-    <h2>Points for player 1: {{ points1 }}</h2>
+    <h2>Points for player 1: {{ normalizePoints(player1.points) }}</h2>
     <ul class="list-none flex">
       @for(card of hand1; track card.data.id){
       <li>
@@ -21,7 +34,7 @@
     }
   </div>
   <div>
-    <h2>Points for player 2: {{ points2 }}</h2>
+    <h2>Points for player 2: {{ normalizePoints(player2.points) }}</h2>
     <ul class="list-none flex">
       @for(card of hand2; track card.data.id){
       <li>
@@ -31,5 +44,6 @@
     </ul>
   </div>
 </div>
+}
 
 <router-outlet />

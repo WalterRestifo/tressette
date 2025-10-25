@@ -35,6 +35,11 @@ export class GameManagerService {
    * The player that won the last trick. If the game just begun, it is player 1.
    */
   private leadingPlayer: Player = this.player1;
+  $gameEnded = new BehaviorSubject(false);
+  /**
+   * The ace has normally 1 point and the other cards with point have 1/3 point value.
+   */
+  private normalizationFactor = 3;
 
   constructor() {
     this.initialiseGame();
@@ -84,19 +89,22 @@ export class GameManagerService {
     //wait 2 seconds, so that the players can see what cards were played, before the new trick begins
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
-    const trickPoints =
+    const cardTrickPoints =
       this.player1.inThisTrickPlayedCard!.data.pointValue +
       this.player2.inThisTrickPlayedCard!.data.pointValue;
 
+    // the winner of the last trick gains bonus points
+    const lastTrickPoints = this.player1.hand.length === 0 ? 3 : 0;
+
+    const trickPoints = cardTrickPoints + lastTrickPoints;
+
     if (this.player1.inThisTrickPlayedCard === winnerCard) {
-      console.log('player1 wins');
       this.player1.points += trickPoints;
       this.leadingPlayer = this.player1;
       // if player1 wins the trick, it plays first in the next trick
       this.player1.$isOwnTurn.next(true);
       this.player2.$isOwnTurn.next(false);
     } else {
-      console.log('player2 wins');
       this.player2.points += trickPoints;
       this.leadingPlayer = this.player2;
       // if player2 wins the trick, it plays first in the next trick
@@ -146,6 +154,23 @@ export class GameManagerService {
     this.$leadingSuit.next(undefined);
   }
 
-  //TODO: implement the end of the game
-  endGame() {}
+  endGame = () => {
+    this.$gameEnded.next(true);
+  };
+
+  startNewGame = () => {
+    this.resetTrick();
+    this.player1.points = 0;
+    this.player2.points = 0;
+    this.player1.$isOwnTurn.next(true);
+    this.player2.$isOwnTurn.next(false);
+    this.deckClassInstance = new DeckClass();
+    this.deck = this.deckClassInstance.deck;
+    this.initialiseGame();
+    this.$gameEnded.next(false);
+  };
+
+  normalizePoints = (points: number) => {
+    return points / this.normalizationFactor;
+  };
 }
