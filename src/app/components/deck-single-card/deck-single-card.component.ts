@@ -1,57 +1,57 @@
-import { Component, inject, input, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  effect,
+  inject,
+  input,
+  OnDestroy,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { DeckSingleCardType } from '../../models/deck-single-card.model';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { SingleCardDialogComponent } from '../single-card-dialog/single-card-dialog.component';
-import { GameManagerService } from '../../services/game-manager.service';
-import { Subscription } from 'rxjs';
+import { Player } from '../../models/player.model';
+import { CardSuitEnum } from '../../models/enums';
 
 @Component({
   selector: 'app-deck-single-card',
   imports: [MatCardModule],
   templateUrl: './deck-single-card.component.html',
 })
-export class DeckSingleCardComponent implements OnInit, OnDestroy {
+export class DeckSingleCardComponent {
   checkIfPlayable!: () => boolean;
 
   data = input.required<DeckSingleCardType>();
 
   dialog = inject(MatDialog);
 
-  private gameManager = inject(GameManagerService);
+  player = input.required<Player>();
+  leadingSuit = input<CardSuitEnum>();
 
-  private subscriptions = new Subscription();
+  isPlayable = signal(false);
 
-  ngOnInit(): void {
-    this.checkIfPlayable = () => {
-      const player = this.gameManager.getCurrentPlayer();
-      const hand = player.hand;
+  constructor() {
+    effect(() => {
+      const hand = this.player().hand;
+      const leadingSuit = this.leadingSuit();
+      const suit = this.data().suit;
+
       // If the first card of the trick was not yet played, every card can be played
-      if (this.gameManager.$leadingSuit.value === undefined) return true;
+      if (leadingSuit === undefined) return true;
 
       // If the player has some card of the same suit, he must follow the trick suit
       const hasSameSuitCards = hand.some(
-        (card) => card.data.suit === this.gameManager.$leadingSuit.value
+        (card) => card.data.suit === leadingSuit
       );
 
       // If the player has no cards of the leading suit, he can play every card
-      if (
-        !hasSameSuitCards ||
-        this.data().suit === this.gameManager.$leadingSuit.value
-      ) {
+      if (!hasSameSuitCards || suit === leadingSuit) {
         return true;
       } else {
         return false;
       }
-    };
-    const sub = this.gameManager.$leadingSuit.subscribe(() =>
-      this.checkIfPlayable()
-    );
-    this.subscriptions.add(sub);
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
+    });
   }
 
   get numberValue() {

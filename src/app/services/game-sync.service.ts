@@ -9,11 +9,33 @@ import { Player } from '../models/player.model';
 export class GameSyncService {
   constructor(private socket: Socket) {}
 
-  playCard(card: DeckSingleCard) {
-    this.socket.emit('playedCard', card);
+  playCard(card: DeckSingleCard, player: Player) {
+    const payloadToServer = { card, player };
+
+    this.socket.emit('playedCard', payloadToServer);
   }
 
   getNewPlayedCard() {
     return this.socket.fromEvent('newCardPlayed');
+  }
+
+  initGame() {
+    this.socket.emit('initGame');
+  }
+
+  getInitGameData() {
+    return this.socket.fromEvent('gameInitialised');
+  }
+
+  startNewGame() {
+    this.socket.emit('startNewGame');
+  }
+
+  quitGame() {
+    this.socket.emit('quitGame');
+  }
+
+  getQuitted() {
+    return this.socket.fromEvent('gameQuitted');
   }
 }

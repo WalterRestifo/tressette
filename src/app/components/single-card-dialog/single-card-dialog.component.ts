@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, input, OnInit } from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialogContent,
@@ -7,9 +7,9 @@ import {
   MatDialogClose,
 } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-import { GameManagerService } from '../../services/game-manager.service';
 import { Player } from '../../models/player.model';
 import { DeckSingleCard } from '../../models/deck-single-card.model';
+import { GameSyncService } from '../../services/game-sync.service';
 
 @Component({
   selector: 'app-single-card-dialog',
@@ -24,19 +24,11 @@ import { DeckSingleCard } from '../../models/deck-single-card.model';
 export class SingleCardDialogComponent {
   data = inject(MAT_DIALOG_DATA);
   dialogRef = inject(MatDialogRef);
-  player: Player;
-
-  constructor(private gameManager: GameManagerService) {
-    if (this.gameManager.player1.$isOwnTurn.value) {
-      this.player = this.gameManager.player1;
-    } else {
-      this.player = this.gameManager.player2;
-    }
-  }
+  gameSync = inject(GameSyncService);
+  player = input.required<Player>();
 
   playSingleCard(cardData: DeckSingleCard) {
     this.dialogRef.close();
-    this.gameManager.playCard(cardData, this.player);
-    this.gameManager.updateTurn();
+    this.gameSync.playCard(cardData, this.player());
   }
 }

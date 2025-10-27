@@ -1,0 +1,6 @@
+<h1>Tressette Online</h1>
+<form [formGroup]="form">
+  <input type="radio" formControlName="session" value="new" /> New game
+  <input type="radio" formControlName="session" value="join" /> Join game
+</form>
+<p>Form value: {{ form.value | json }}</p>
