@@ -10,8 +10,6 @@ import { GameSyncService } from '../../services/game-sync.service';
 })
 export class EndGameScreenComponent {
   winner = input<Player | undefined>();
-  player1 = input.required<Player>();
-  player2 = input.required<Player>();
   pointFactor = 3;
   gameSync = inject(GameSyncService);
   normalizePoints(points: number) {

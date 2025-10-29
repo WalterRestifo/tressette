@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { DeckSingleCard } from '../models/deck-single-card.model';
 import { Player } from '../models/player.model';
+import { SessionDto } from '../models/dtos/session.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -19,10 +20,6 @@ export class GameSyncService {
     return this.socket.fromEvent('newCardPlayed');
   }
 
-  initGame() {
-    this.socket.emit('initGame');
-  }
-
   getInitGameData() {
     return this.socket.fromEvent('gameInitialised');
   }
@@ -37,5 +34,13 @@ export class GameSyncService {
 
   getQuitted() {
     return this.socket.fromEvent('gameQuitted');
+  }
+
+  sendSessionData(sessionData: SessionDto) {
+    this.socket.emit('sessionDataSended', sessionData);
+  }
+
+  getError() {
+    return this.socket.fromEvent('error');
   }
 }

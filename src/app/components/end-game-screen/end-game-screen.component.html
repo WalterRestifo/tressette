@@ -1,9 +1,3 @@
 <h2>Game Over</h2>
 <p>player {{ winner()?.name }} won!</p>
-<p>
-  player {{ player1().name }} had {{ normalizePoints(player1().points) }} points
-</p>
-<p>
-  player {{ player2().name }} had {{ normalizePoints(player2().points) }} points
-</p>
 <button matButton="elevated" (click)="startNewGame()">play again</button>

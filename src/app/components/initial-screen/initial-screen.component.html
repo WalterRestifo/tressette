@@ -1,6 +1,27 @@
 <h1>Tressette Online</h1>
-<form [formGroup]="form">
-  <input type="radio" formControlName="session" value="new" /> New game
-  <input type="radio" formControlName="session" value="join" /> Join game
+<form [formGroup]="form" class="flex flex-col">
+  <mat-radio-group [formControl]="sessionControl">
+    <mat-radio-button [value]="sessionType.New">New game</mat-radio-button>
+    <mat-radio-button [value]="sessionType.Join">Join game</mat-radio-button>
+  </mat-radio-group>
+  @if(form.value.session === sessionType.Join){
+  <mat-form-field>
+    <mat-label>Enter the session id</mat-label>
+    <input
+      matInput
+      [formControl]="sessionIdControl"
+      placeholder="(i.e. awesomeSession123)"
+    />
+  </mat-form-field>
+  } @if(form.value.session === sessionType.New){
+  <mat-form-field>
+    <mat-label>Write a session id</mat-label>
+    <input
+      matInput
+      [formControl]="sessionIdControl"
+      placeholder="(i.e. awesomeSession123)"
+    />
+  </mat-form-field>
+  }
+  <button matButton="elevated" (click)="onSubmit()">Play</button>
 </form>
-<p>Form value: {{ form.value | json }}</p>

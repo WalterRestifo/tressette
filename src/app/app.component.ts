@@ -9,6 +9,7 @@ import { DeckSingleCard } from './models/deck-single-card.model';
 import { CardPointValueEnum, CardSuitEnum } from './models/enums';
 import { EndGameScreenComponent } from './components/end-game-screen/end-game-screen.component';
 import { InitialScreenComponent } from './components/initial-screen/initial-screen.component';
+import { DeckSingleCardDto } from './models/dtos/deckSingleCard.dto';
 
 @Component({
   selector: 'app-root',
@@ -37,25 +38,25 @@ export class AppComponent implements OnInit, OnDestroy {
   normalizePoints = this.gameManager.normalizePoints; */
 
   //todo: look if I really need this placeholders
-  player1 = new Player('placeholderOne');
-  player2 = new Player('placeholderTwo');
-  currentPlayer = this.player1;
+  player = new Player('placeholde');
+  currentPlayer = this.player;
   private subscriptions = new Subscription();
   pointFactor = 3;
-  isGameNotInitialised = true;
+  isGameInitialised = false;
+  inThisTrickPlayedCards: {
+    player1: DeckSingleCardDto | undefined;
+    player2: DeckSingleCardDto | undefined;
+  } = { player1: undefined, player2: undefined };
 
-  get hand1() {
-    return this.player1.hand;
-  }
-  get hand2() {
-    return this.player2.hand;
+  get hand() {
+    return this.player.hand;
   }
 
   get card1() {
-    return this.player1.inThisTrickPlayedCard;
+    return this.inThisTrickPlayedCards.player2;
   }
   get card2() {
-    return this.player2.inThisTrickPlayedCard;
+    return this.inThisTrickPlayedCards.player1;
   }
 
   ngOnInit(): void {
@@ -76,22 +77,11 @@ export class AppComponent implements OnInit, OnDestroy {
     const gameInitialisedSub = this.gameSync
       .getInitGameData()
       .subscribe((gameData) => {
-        this.player1 = gameData.player1;
-        this.player2 = gameData.player2;
+        this.player = gameData.player;
         this.isGameOver = gameData.gameEnded;
         this.currentPlayer = gameData.currentPlayer;
-        this.isGameNotInitialised = false;
-
-        if (this.isGameOver) {
-          if (this.player1.points > this.player2.points) {
-            this.winner = this.player1;
-          } else if (this.player1.points < this.player2.points) {
-            this.winner = this.player2;
-          } else this.winner = undefined;
-        } else {
-          // when starting a new game, the isGameOver will become false again. In that case we need to reset the winner.
-          this.winner = undefined;
-        }
+        this.isGameInitialised = true;
+        this.winner = gameData.winner;
       });
 
     this.subscriptions.add(gameInitialisedSub);
@@ -117,7 +107,7 @@ export class AppComponent implements OnInit, OnDestroy {
       suit: CardSuitEnum.Coins,
       id: 100,
     });
-    this.gameSync.playCard(someCard, this.player1);
+    this.gameSync.playCard(someCard, this.player);
   }
 
   //todo: make a shared util or something, because the same is in endGameScreen component

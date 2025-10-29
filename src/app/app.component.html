@@ -1,20 +1,16 @@
 @if(isGameOver){
-<app-end-game-screen
-  [player1]="player1"
-  [player2]="player2"
-  [winner]="winner"
-/>
-} @else if (isGameNotInitialised) {
+<app-end-game-screen [winner]="winner" />
+} @else if (!isGameInitialised) {
 <app-initial-screen />
 } @else {
 <button matButton="elevated" (click)="quitGame()">quit game</button>
 <div class="flex flex-col justify-between h-full">
   <div>
-    <h2>Points for player 1: {{ normalizePoints(player1.points) }}</h2>
+    <h2>Points for player 1: {{ normalizePoints(player.points) }}</h2>
     <ul class="list-none flex">
-      @for(card of hand1; track card.data.id){
+      @for(card of hand; track card.data.id){
       <li>
-        <app-deck-single-card [data]="card.data" [player]="player1" />
+        <app-deck-single-card [data]="card.data" [player]="player" />
       </li>
       }
     </ul>
@@ -23,11 +19,11 @@
     <h2>It's the turn of {{ currentPlayer.name }}</h2>
     <h3>Player 1 played card</h3>
     @if(card1){
-    <app-deck-single-card [data]="card1.data" [player]="player1" />
+    <app-deck-single-card [data]="card1" [player]="player" />
     }
     <h3>Player 2 played card</h3>
     @if(card2){
-    <app-deck-single-card [data]="card2.data" [player]="player2" />
+    <app-deck-single-card [data]="card2" [player]="player" />
     }
   </div>
 </div>
