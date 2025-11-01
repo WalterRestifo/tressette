@@ -78,6 +78,7 @@ export class DeckSingleCardComponent {
           pointValue: this.data().pointValue,
           id: this.data().id,
         },
+        player: this.player(),
       },
     });
   }

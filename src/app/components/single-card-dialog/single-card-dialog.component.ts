@@ -7,9 +7,15 @@ import {
   MatDialogClose,
 } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-import { Player } from '../../models/player.model';
-import { DeckSingleCard } from '../../models/deck-single-card.model';
+import { DeckSingleCardType } from '../../models/deck-single-card.model';
 import { GameSyncService } from '../../services/game-sync.service';
+import { Player } from '../../models/player.model';
+import { SessionIdentityService } from '../../services/session-identity.service';
+
+type DialogData = {
+  data: DeckSingleCardType;
+  player: Player;
+};
 
 @Component({
   selector: 'app-single-card-dialog',
@@ -22,13 +28,18 @@ import { GameSyncService } from '../../services/game-sync.service';
   templateUrl: './single-card-dialog.component.html',
 })
 export class SingleCardDialogComponent {
-  data = inject(MAT_DIALOG_DATA);
+  data: DialogData = inject(MAT_DIALOG_DATA);
   dialogRef = inject(MatDialogRef);
   gameSync = inject(GameSyncService);
-  player = input.required<Player>();
+  sessionIdentitySvc = inject(SessionIdentityService);
+  player = this.data.player;
 
-  playSingleCard(cardData: DeckSingleCard) {
+  playSingleCard(cardData: DeckSingleCardType) {
     this.dialogRef.close();
-    this.gameSync.playCard(cardData, this.player());
+    this.gameSync.playCard(
+      cardData,
+      this.player,
+      this.sessionIdentitySvc.get()
+    );
   }
 }

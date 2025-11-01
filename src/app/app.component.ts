@@ -5,11 +5,11 @@ import { Subscription } from 'rxjs';
 import { Player } from './models/player.model';
 import { MatButtonModule } from '@angular/material/button';
 import { GameSyncService } from './services/game-sync.service';
-import { DeckSingleCard } from './models/deck-single-card.model';
-import { CardPointValueEnum, CardSuitEnum } from './models/enums';
 import { EndGameScreenComponent } from './components/end-game-screen/end-game-screen.component';
 import { InitialScreenComponent } from './components/initial-screen/initial-screen.component';
 import { DeckSingleCardDto } from './models/dtos/deckSingleCard.dto';
+import { CardSuitEnum, PlayerEnum } from './models/enums';
+import { SessionIdentityService } from './services/session-identity.service';
 
 @Component({
   selector: 'app-root',
@@ -25,14 +25,10 @@ import { DeckSingleCardDto } from './models/dtos/deckSingleCard.dto';
 })
 export class AppComponent implements OnInit, OnDestroy {
   private gameSync = inject(GameSyncService);
+  private sessionIdentitySvc = inject(SessionIdentityService);
   isGameOver = false;
   winner: Player | undefined;
-  /*   currentPlayer = this.gameManager.getCurrentPlayer();
-  isGameOver = this.gameManager.$gameEnded.value;
-  player1 = this.gameManager.player1;
-  player2 = this.gameManager.player2;
-  private subscriptions = new Subscription();
-  winner: Player | undefined;
+  /*   
   startNewGame = this.gameManager.startNewGame;
   endGame = this.gameManager.endGame;
   normalizePoints = this.gameManager.normalizePoints; */
@@ -47,16 +43,21 @@ export class AppComponent implements OnInit, OnDestroy {
     player1: DeckSingleCardDto | undefined;
     player2: DeckSingleCardDto | undefined;
   } = { player1: undefined, player2: undefined };
+  identity = {
+    sessionId: 'placeholder',
+    player: PlayerEnum.Player1,
+  };
+  leadingSuit: CardSuitEnum | undefined;
 
   get hand() {
     return this.player.hand;
   }
 
   get card1() {
-    return this.inThisTrickPlayedCards.player2;
+    return this.inThisTrickPlayedCards.player1;
   }
   get card2() {
-    return this.inThisTrickPlayedCards.player1;
+    return this.inThisTrickPlayedCards.player2;
   }
 
   ngOnInit(): void {
@@ -68,9 +69,14 @@ export class AppComponent implements OnInit, OnDestroy {
 
     const playedCardSub = this.gameSync
       .getNewPlayedCard()
-      .subscribe((payloadFromServer) =>
-        console.log('payload coming from server: ', payloadFromServer)
-      );
+      .subscribe((gameData) => {
+        this.isGameOver = gameData.gameEnded;
+        this.currentPlayer = gameData.currentPlayer;
+        this.winner = gameData.winner;
+        this.inThisTrickPlayedCards = gameData.inThisTrickPlayedCards;
+        this.currentPlayer = gameData.currentPlayer;
+        this.leadingSuit = gameData.leadingSuit;
+      });
 
     this.subscriptions.add(playedCardSub);
 
@@ -83,6 +89,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.currentPlayer = gameData.currentPlayer;
         this.isGameInitialised = true;
         this.winner = gameData.winner;
+        this.sessionIdentitySvc.set(gameData.sessionIdentity);
       });
 
     this.subscriptions.add(gameInitialisedSub);
@@ -98,17 +105,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
-  }
-
-  emitSomething() {
-    const someCard = new DeckSingleCard({
-      gameValue: 100,
-      numberValue: 100,
-      pointValue: CardPointValueEnum.Full,
-      suit: CardSuitEnum.Coins,
-      id: 100,
-    });
-    this.gameSync.playCard(someCard, this.player);
   }
 
   //todo: make a shared util or something, because the same is in endGameScreen component
