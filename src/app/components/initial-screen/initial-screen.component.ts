@@ -28,7 +28,9 @@ export class InitialScreenComponent {
     nonNullable: true,
   });
   readonly sessionIdControl = new FormControl('', { nonNullable: true });
-  readonly sessionSignal = toSignal(this.sessionControl.valueChanges);
+  sessionSignal = toSignal(this.sessionControl.valueChanges, {
+    initialValue: this.sessionControl.value,
+  });
   readonly playerSignal = computed(() => {
     return this.sessionSignal() === SessionTypeEnum.New
       ? PlayerEnum.Player1

@@ -6,7 +6,7 @@
 <button matButton="elevated" (click)="quitGame()">quit game</button>
 <div class="flex flex-col justify-between h-full">
   <div>
-    <h2>Points for player 1: {{ normalizePoints(player.points) }}</h2>
+    <h2>Your points: {{ normalizePoints(player.points) }}</h2>
     <ul class="list-none flex">
       @for(card of hand; track card.data.id){
       <li>

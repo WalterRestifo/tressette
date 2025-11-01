@@ -38,7 +38,7 @@ export class AppComponent implements OnInit, OnDestroy {
   normalizePoints = this.gameManager.normalizePoints; */
 
   //todo: look if I really need this placeholders
-  player = new Player('placeholde');
+  player = new Player('placeholder');
   currentPlayer = this.player;
   private subscriptions = new Subscription();
   pointFactor = 3;
@@ -77,6 +77,7 @@ export class AppComponent implements OnInit, OnDestroy {
     const gameInitialisedSub = this.gameSync
       .getInitGameData()
       .subscribe((gameData) => {
+        console.log('gameData: ', gameData);
         this.player = gameData.player;
         this.isGameOver = gameData.gameEnded;
         this.currentPlayer = gameData.currentPlayer;
