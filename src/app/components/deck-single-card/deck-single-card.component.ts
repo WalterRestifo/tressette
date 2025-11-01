@@ -20,8 +20,6 @@ import { CardSuitEnum } from '../../models/enums';
   templateUrl: './deck-single-card.component.html',
 })
 export class DeckSingleCardComponent {
-  checkIfPlayable!: () => boolean;
-
   data = input.required<DeckSingleCardType>();
 
   dialog = inject(MatDialog);
@@ -31,26 +29,30 @@ export class DeckSingleCardComponent {
 
   isPlayable = signal(false);
 
+  private checkIfPlayable() {
+    const hand = this.player().hand;
+    const leadingSuit = this.leadingSuit();
+    const suit = this.data().suit;
+
+    // If the first card of the trick was not yet played, every card can be played
+    if (leadingSuit === undefined) return true;
+
+    // If the player has some card of the same suit, he must follow the trick suit
+    const hasSameSuitCards = hand.some(
+      (card) => card.data.suit === leadingSuit
+    );
+
+    // If the player has no cards of the leading suit, he can play every card
+    if (!hasSameSuitCards || suit === leadingSuit) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   constructor() {
     effect(() => {
-      const hand = this.player().hand;
-      const leadingSuit = this.leadingSuit();
-      const suit = this.data().suit;
-
-      // If the first card of the trick was not yet played, every card can be played
-      if (leadingSuit === undefined) return true;
-
-      // If the player has some card of the same suit, he must follow the trick suit
-      const hasSameSuitCards = hand.some(
-        (card) => card.data.suit === leadingSuit
-      );
-
-      // If the player has no cards of the leading suit, he can play every card
-      if (!hasSameSuitCards || suit === leadingSuit) {
-        return true;
-      } else {
-        return false;
-      }
+      this.isPlayable.set(this.checkIfPlayable());
     });
   }
 
@@ -62,8 +64,8 @@ export class DeckSingleCardComponent {
     return this.data().suit;
   }
 
-  openDialog(isPlayable: boolean) {
-    if (!isPlayable) return;
+  openDialog() {
+    if (!this.isPlayable()) return;
 
     const dialogRef = this.dialog.open(SingleCardDialogComponent, {
       // This data is part of the dialog API of angular material
