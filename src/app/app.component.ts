@@ -74,7 +74,6 @@ export class AppComponent implements OnInit, OnDestroy {
         this.currentPlayer = gameData.currentPlayer;
         this.winner = gameData.winner;
         this.inThisTrickPlayedCards = gameData.inThisTrickPlayedCards;
-        this.currentPlayer = gameData.currentPlayer;
         this.leadingSuit = gameData.leadingSuit;
       });
 

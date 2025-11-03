@@ -25,7 +25,7 @@ export class DeckSingleCardComponent {
   dialog = inject(MatDialog);
 
   player = input.required<Player>();
-  leadingSuit = input<CardSuitEnum>();
+  leadingSuit = input.required<CardSuitEnum | undefined>();
 
   isPlayable = signal(false);
 

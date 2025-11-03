@@ -10,7 +10,11 @@
     <ul class="list-none flex">
       @for(card of hand; track card.data.id){
       <li>
-        <app-deck-single-card [data]="card.data" [player]="player" />
+        <app-deck-single-card
+          [data]="card.data"
+          [player]="player"
+          [leadingSuit]="leadingSuit"
+        />
       </li>
       }
     </ul>
@@ -19,11 +23,19 @@
     <h2>It's the turn of {{ currentPlayer.name }}</h2>
     <h3>Player 1 played card</h3>
     @if(card1){
-    <app-deck-single-card [data]="card1" [player]="player" />
+    <app-deck-single-card
+      [data]="card1"
+      [player]="player"
+      [leadingSuit]="leadingSuit"
+    />
     }
     <h3>Player 2 played card</h3>
     @if(card2){
-    <app-deck-single-card [data]="card2" [player]="player" />
+    <app-deck-single-card
+      [data]="card2"
+      [player]="player"
+      [leadingSuit]="leadingSuit"
+    />
     }
   </div>
 </div>
