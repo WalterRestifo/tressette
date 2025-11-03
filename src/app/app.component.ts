@@ -75,6 +75,12 @@ export class AppComponent implements OnInit, OnDestroy {
         this.winner = gameData.winner;
         this.inThisTrickPlayedCards = gameData.inThisTrickPlayedCards;
         this.leadingSuit = gameData.leadingSuit;
+
+        if (gameData.player.name === this.player.name) {
+          // update the hand of the own player
+          this.player = gameData.player;
+        }
+        console.log('gameData: ', gameData);
       });
 
     this.subscriptions.add(playedCardSub);
@@ -89,7 +95,6 @@ export class AppComponent implements OnInit, OnDestroy {
         this.isGameInitialised = true;
         this.winner = gameData.winner;
         this.sessionIdentitySvc.set(gameData.sessionIdentity);
-        console.log('gameData: ', gameData);
       });
 
     this.subscriptions.add(gameInitialisedSub);
