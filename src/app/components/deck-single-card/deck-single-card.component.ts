@@ -1,18 +1,10 @@
-import {
-  Component,
-  effect,
-  inject,
-  input,
-  OnDestroy,
-  OnInit,
-  signal,
-} from '@angular/core';
+import { Component, effect, inject, input, signal } from '@angular/core';
 import { DeckSingleCardType } from '../../models/deck-single-card.model';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { SingleCardDialogComponent } from '../single-card-dialog/single-card-dialog.component';
 import { Player } from '../../models/player.model';
-import { CardSuitEnum } from '../../models/enums';
+import { CardSuitEnum, PlayerEnum } from '../../models/enums';
 
 @Component({
   selector: 'app-deck-single-card',
@@ -26,13 +18,17 @@ export class DeckSingleCardComponent {
 
   player = input.required<Player>();
   leadingSuit = input.required<CardSuitEnum | undefined>();
+  currentPlayerName = input<PlayerEnum>();
 
   isPlayable = signal(false);
 
   private checkIfPlayable() {
+    const ownName = this.player().name;
     const hand = this.player().hand;
     const leadingSuit = this.leadingSuit();
     const suit = this.data().suit;
+
+    if (this.currentPlayerName() !== ownName) return false;
 
     // If the first card of the trick was not yet played, every card can be played
     if (leadingSuit === undefined) return true;

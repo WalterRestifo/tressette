@@ -14,13 +14,14 @@
           [data]="card.data"
           [player]="player"
           [leadingSuit]="leadingSuit"
+          [currentPlayerName]="currentPlayerName"
         />
       </li>
       }
     </ul>
   </div>
   <div>
-    <h2>It's the turn of {{ currentPlayer.name }}</h2>
+    <h2>It's the turn of {{ currentPlayerName }}</h2>
     <h3>Player 1 played card</h3>
     @if(card1){
     <app-deck-single-card

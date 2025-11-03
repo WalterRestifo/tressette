@@ -35,7 +35,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   //todo: look if I really need this placeholders
   player = new Player('placeholder');
-  currentPlayer = this.player;
+  currentPlayerName = PlayerEnum.Player1;
   private subscriptions = new Subscription();
   pointFactor = 3;
   isGameInitialised = false;
@@ -71,7 +71,7 @@ export class AppComponent implements OnInit, OnDestroy {
       .getNewPlayedCard()
       .subscribe((gameData) => {
         this.isGameOver = gameData.gameEnded;
-        this.currentPlayer = gameData.currentPlayer;
+        this.currentPlayerName = gameData.currentPlayerName;
         this.winner = gameData.winner;
         this.inThisTrickPlayedCards = gameData.inThisTrickPlayedCards;
         this.leadingSuit = gameData.leadingSuit;
@@ -85,10 +85,11 @@ export class AppComponent implements OnInit, OnDestroy {
         console.log('gameData: ', gameData);
         this.player = gameData.player;
         this.isGameOver = gameData.gameEnded;
-        this.currentPlayer = gameData.currentPlayer;
+        this.currentPlayerName = gameData.currentPlayerName;
         this.isGameInitialised = true;
         this.winner = gameData.winner;
         this.sessionIdentitySvc.set(gameData.sessionIdentity);
+        console.log('gameData: ', gameData);
       });
 
     this.subscriptions.add(gameInitialisedSub);
