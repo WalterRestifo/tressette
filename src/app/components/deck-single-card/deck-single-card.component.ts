@@ -1,10 +1,10 @@
 import { Component, effect, inject, input, signal } from '@angular/core';
-import { DeckSingleCardType } from '../../models/deck-single-card.model';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { SingleCardDialogComponent } from '../single-card-dialog/single-card-dialog.component';
 import { Player } from '../../models/player.model';
 import { CardSuitEnum, PlayerEnum } from '../../models/enums';
+import { DeckSingleCardDto } from '../../models/dtos/deckSingleCard.dto';
 
 @Component({
   selector: 'app-deck-single-card',
@@ -12,7 +12,7 @@ import { CardSuitEnum, PlayerEnum } from '../../models/enums';
   templateUrl: './deck-single-card.component.html',
 })
 export class DeckSingleCardComponent {
-  data = input.required<DeckSingleCardType>();
+  data = input.required<DeckSingleCardDto>();
 
   dialog = inject(MatDialog);
 
@@ -34,9 +34,7 @@ export class DeckSingleCardComponent {
     if (leadingSuit === undefined) return true;
 
     // If the player has some card of the same suit, he must follow the trick suit
-    const hasSameSuitCards = hand.some(
-      (card) => card.data.suit === leadingSuit
-    );
+    const hasSameSuitCards = hand.some((card) => card.suit === leadingSuit);
 
     // If the player has no cards of the leading suit, he can play every card
     if (!hasSameSuitCards || suit === leadingSuit) {

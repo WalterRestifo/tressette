@@ -1,11 +1,10 @@
-import { BehaviorSubject } from 'rxjs';
-import { DeckSingleCard } from './deck-single-card.model';
+import { DeckSingleCardDto } from './dtos/deckSingleCard.dto';
 
 export class Player {
-  hand: DeckSingleCard[] = [];
+  hand: DeckSingleCardDto[] = [];
   name = '';
   isOwnTurn = false;
-  inThisTrickPlayedCard: DeckSingleCard | undefined;
+  inThisTrickPlayedCard: DeckSingleCardDto | undefined;
   points = 0;
   constructor(name: string) {
     this.name = name;
