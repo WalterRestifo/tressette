@@ -3,7 +3,7 @@
 } @else if (!isGameInitialised) {
 <app-initial-screen />
 } @else {
-<button matButton="elevated" (click)="quitGame()">quit game</button>
+<button matButton="elevated" (click)="endGame()">quit game</button>
 <div class="flex flex-col justify-between h-full">
   <div>
     <h2>Your points: {{ normalizePoints(player.points) }}</h2>

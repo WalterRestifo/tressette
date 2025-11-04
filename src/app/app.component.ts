@@ -115,7 +115,7 @@ export class AppComponent implements OnInit, OnDestroy {
     return points / this.pointFactor;
   }
 
-  quitGame() {
-    this.gameSync.quitGame(this.sessionIdentitySvc.get());
+  endGame() {
+    this.gameSync.endGame(this.sessionIdentitySvc.get());
   }
 }

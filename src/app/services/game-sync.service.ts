@@ -32,8 +32,8 @@ export class GameSyncService {
     this.socket.emit('startNewGame', sessionIdentity);
   }
 
-  quitGame(sessionIdentity: SessionIdentityDto) {
-    this.socket.emit('quitGame', sessionIdentity);
+  endGame(sessionIdentity: SessionIdentityDto) {
+    this.socket.emit('endGame', sessionIdentity);
   }
 
   getGameEnded() {
