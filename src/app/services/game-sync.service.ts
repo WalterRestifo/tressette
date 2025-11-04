@@ -32,12 +32,12 @@ export class GameSyncService {
     this.socket.emit('startNewGame');
   }
 
-  quitGame() {
-    this.socket.emit('quitGame');
+  quitGame(sessionData: SessionIdentityDto) {
+    this.socket.emit('quitGame', sessionData);
   }
 
-  getQuitted() {
-    return this.socket.fromEvent('gameQuitted');
+  getGameEnded() {
+    return this.socket.fromEvent('gameEnded');
   }
 
   sendSessionData(sessionData: SessionDto) {
@@ -46,5 +46,9 @@ export class GameSyncService {
 
   getError() {
     return this.socket.fromEvent('error');
+  }
+
+  getNewTrickUpdate() {
+    return this.socket.fromEvent('newTrickUpdate');
   }
 }

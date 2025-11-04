@@ -43,10 +43,6 @@ export class AppComponent implements OnInit, OnDestroy {
     player1: DeckSingleCardDto | undefined;
     player2: DeckSingleCardDto | undefined;
   } = { player1: undefined, player2: undefined };
-  identity = {
-    sessionId: 'placeholder',
-    player: PlayerEnum.Player1,
-  };
   leadingSuit: CardSuitEnum | undefined;
 
   get hand() {
@@ -61,18 +57,11 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    /*     const turnSub = this.player1.$isOwnTurn.subscribe(
-      () => (this.currentPlayer = this.gameManager.getCurrentPlayer())
-    );
- */
-    //  this.subscriptions.add(turnSub);
-
     const playedCardSub = this.gameSync
       .getNewPlayedCard()
       .subscribe((gameData) => {
         this.isGameOver = gameData.gameEnded;
         this.currentPlayerName = gameData.currentPlayerName;
-        this.winner = gameData.winner;
         this.inThisTrickPlayedCards = gameData.inThisTrickPlayedCards;
         this.leadingSuit = gameData.leadingSuit;
 
@@ -80,7 +69,6 @@ export class AppComponent implements OnInit, OnDestroy {
           // update the hand of the own player
           this.player = gameData.player;
         }
-        console.log('gameData: ', gameData);
       });
 
     this.subscriptions.add(playedCardSub);
@@ -88,24 +76,34 @@ export class AppComponent implements OnInit, OnDestroy {
     const gameInitialisedSub = this.gameSync
       .getInitGameData()
       .subscribe((gameData) => {
-        console.log('gameData: ', gameData);
         this.player = gameData.player;
         this.isGameOver = gameData.gameEnded;
         this.currentPlayerName = gameData.currentPlayerName;
         this.isGameInitialised = true;
-        this.winner = gameData.winner;
         this.sessionIdentitySvc.set(gameData.sessionIdentity);
       });
 
     this.subscriptions.add(gameInitialisedSub);
 
-    const gameQuittedSub = this.gameSync
-      .getQuitted()
-      .subscribe((isGameQuitted) => {
-        this.isGameOver = isGameQuitted;
+    const gameEndedSub = this.gameSync.getGameEnded().subscribe((gameData) => {
+      this.isGameOver = gameData.gameEnded;
+      this.winner = gameData.winner;
+    });
+
+    this.subscriptions.add(gameEndedSub);
+
+    const newTrickUpdateSub = this.gameSync
+      .getNewTrickUpdate()
+      .subscribe((gameData) => {
+        this.isGameOver = gameData.gameEnded;
+        this.currentPlayerName = gameData.currentPlayerName;
+        this.inThisTrickPlayedCards = gameData.inThisTrickPlayedCards;
+        this.leadingSuit = gameData.leadingSuit;
+        this.winner = gameData.winner;
+        this.player = gameData.player;
       });
 
-    this.subscriptions.add(gameQuittedSub);
+    this.subscriptions.add(newTrickUpdateSub);
   }
 
   ngOnDestroy(): void {
@@ -118,6 +116,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   quitGame() {
-    this.gameSync.quitGame();
+    this.gameSync.quitGame(this.sessionIdentitySvc.get());
   }
 }
