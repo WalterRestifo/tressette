@@ -3,41 +3,48 @@
 } @else if (!isGameInitialised) {
 <app-initial-screen />
 } @else {
-<button matButton="elevated" (click)="endGame()">quit game</button>
-<div class="flex flex-col justify-between h-full">
+<div class="h-dvh">
   <div>
-    <h2>Your points: {{ normalizePoints(player.points) }}</h2>
-    <ul class="list-none flex">
-      @for(card of hand; track card.id){
-      <li>
+    <div
+      class="game-table relative w-full h-[80dvh] bg-[url('/img/wooden-desk.png')] bg-cover bg-center"
+    >
+      <h2 class="text-white text-center py-8">
+        It's the turn of {{ currentPlayerName }}
+      </h2>
+      <div class="cards-container absolute inset-0">
+        @if(card1){
+        <h3 class="text-white">Player 1 played card</h3>
         <app-deck-single-card
-          [data]="card"
+          [data]="card1"
           [player]="player"
           [leadingSuit]="leadingSuit"
-          [currentPlayerName]="currentPlayerName"
         />
-      </li>
-      }
-    </ul>
-  </div>
-  <div>
-    <h2>It's the turn of {{ currentPlayerName }}</h2>
-    <h3>Player 1 played card</h3>
-    @if(card1){
-    <app-deck-single-card
-      [data]="card1"
-      [player]="player"
-      [leadingSuit]="leadingSuit"
-    />
-    }
-    <h3>Player 2 played card</h3>
-    @if(card2){
-    <app-deck-single-card
-      [data]="card2"
-      [player]="player"
-      [leadingSuit]="leadingSuit"
-    />
-    }
+        } @if(card2){
+        <h3 class="text-white">Player 2 played card</h3>
+        <app-deck-single-card
+          [data]="card2"
+          [player]="player"
+          [leadingSuit]="leadingSuit"
+        />
+        }
+      </div>
+    </div>
+    <div>
+      <button matButton="elevated" (click)="endGame()">quit game</button>
+      <h2>Your points: {{ normalizePoints(player.points) }}</h2>
+      <ul class="list-none flex">
+        @for(card of hand; track card.id){
+        <li>
+          <app-deck-single-card
+            [data]="card"
+            [player]="player"
+            [leadingSuit]="leadingSuit"
+            [currentPlayerName]="currentPlayerName"
+          />
+        </li>
+        }
+      </ul>
+    </div>
   </div>
 </div>
 }
