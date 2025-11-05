@@ -1,10 +1,10 @@
-import { DeckSingleCardDto } from './dtos/deckSingleCard.dto';
+import { DeckSingleCardDtoType } from './dtos/deckSingleCard.dto';
 
 export class Player {
-  hand: DeckSingleCardDto[] = [];
+  hand: DeckSingleCardDtoType[] = [];
   name = '';
   isOwnTurn = false;
-  inThisTrickPlayedCard?: DeckSingleCardDto;
+  inThisTrickPlayedCard?: DeckSingleCardDtoType;
   points = 0;
   constructor(name: string) {
     this.name = name;

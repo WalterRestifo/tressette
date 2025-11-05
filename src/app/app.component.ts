@@ -7,7 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { GameSyncService } from './services/game-sync.service';
 import { EndGameScreenComponent } from './components/end-game-screen/end-game-screen.component';
 import { InitialScreenComponent } from './components/initial-screen/initial-screen.component';
-import { DeckSingleCardDto } from './models/dtos/deckSingleCard.dto';
+import { DeckSingleCardDtoType } from './models/dtos/deckSingleCard.dto';
 import { CardSuitEnum, PlayerEnum } from './models/enums';
 import { SessionIdentityService } from './services/session-identity.service';
 import { parseDTO } from './models/dtos/gameData.dto';
@@ -36,8 +36,8 @@ export class AppComponent implements OnInit, OnDestroy {
   pointFactor = 3;
   isGameInitialised = false;
   inThisTrickPlayedCards: {
-    player1?: DeckSingleCardDto;
-    player2?: DeckSingleCardDto;
+    player1?: DeckSingleCardDtoType;
+    player2?: DeckSingleCardDtoType;
   } = {};
   leadingSuit: CardSuitEnum | undefined;
 

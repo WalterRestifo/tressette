@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SessionIdentityDto } from '../models/dtos/sessionIdentity.dto';
+import { SessionIdentityDtoType } from '../models/dtos/sessionIdentity.dto';
 import { PlayerEnum } from '../models/enums';
 
 @Injectable({ providedIn: 'root' })
@@ -7,7 +7,7 @@ export class SessionIdentityService {
   sessionId = '';
   player = PlayerEnum.Player1;
 
-  set(sessionIdentityData: SessionIdentityDto) {
+  set(sessionIdentityData: SessionIdentityDtoType) {
     this.sessionId = sessionIdentityData.sessionId;
     this.player = sessionIdentityData.player;
   }

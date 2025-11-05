@@ -1,26 +1,8 @@
 import { z } from 'zod';
-import { CardPointValueEnum, CardSuitEnum, PlayerEnum } from '../enums';
-
-const deckSingleCardDto = z.object({
-  gameValue: z.number(),
-  numberValue: z.number(),
-  pointValue: z.enum(CardPointValueEnum),
-  suit: z.enum(CardSuitEnum),
-  id: z.number(),
-});
-
-const playerDto = z.object({
-  hand: z.array(deckSingleCardDto),
-  name: z.enum(PlayerEnum),
-  isOwnTurn: z.boolean(),
-  inThisTrickPlayedCard: deckSingleCardDto.optional(),
-  points: z.number(),
-});
-
-const sessionIdentitDto = z.object({
-  sessionId: z.string(),
-  player: z.enum(PlayerEnum),
-});
+import { CardSuitEnum, PlayerEnum } from '../enums';
+import { deckSingleCardDto } from './deckSingleCard.dto';
+import { playerDto } from './player.dto';
+import { sessionIdentityDto } from './sessionIdentity.dto';
 
 const gameDataDto = z.object({
   player: playerDto,
@@ -31,7 +13,7 @@ const gameDataDto = z.object({
     player2: deckSingleCardDto.optional(),
   }),
   currentPlayerName: z.enum(PlayerEnum),
-  sessionIdentity: sessionIdentitDto,
+  sessionIdentity: sessionIdentityDto,
   winner: playerDto.optional(),
 });
 

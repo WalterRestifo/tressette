@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { SingleCardDialogComponent } from '../single-card-dialog/single-card-dialog.component';
 import { Player } from '../../models/player.model';
 import { CardSuitEnum, PlayerEnum } from '../../models/enums';
-import { DeckSingleCardDto } from '../../models/dtos/deckSingleCard.dto';
+import { DeckSingleCardDtoType } from '../../models/dtos/deckSingleCard.dto';
 
 @Component({
   selector: 'app-deck-single-card',
@@ -12,7 +12,7 @@ import { DeckSingleCardDto } from '../../models/dtos/deckSingleCard.dto';
   templateUrl: './deck-single-card.component.html',
 })
 export class DeckSingleCardComponent {
-  data = input.required<DeckSingleCardDto>();
+  data = input.required<DeckSingleCardDtoType>();
 
   dialog = inject(MatDialog);
 

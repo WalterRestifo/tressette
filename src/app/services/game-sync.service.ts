@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { Player } from '../models/player.model';
 import { SessionDto } from '../models/dtos/session.dto';
-import { SessionIdentityDto } from '../models/dtos/sessionIdentity.dto';
-import { DeckSingleCardDto } from '../models/dtos/deckSingleCard.dto';
+import { SessionIdentityDtoType } from '../models/dtos/sessionIdentity.dto';
+import type { DeckSingleCardDtoType } from '../models/dtos/deckSingleCard.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -12,9 +12,9 @@ export class GameSyncService {
   constructor(private socket: Socket) {}
 
   playCard(
-    card: DeckSingleCardDto,
+    card: DeckSingleCardDtoType,
     player: Player,
-    sessionIdentity: SessionIdentityDto
+    sessionIdentity: SessionIdentityDtoType
   ) {
     const payload = { card, player, sessionIdentity };
     this.socket.emit('playedCard', payload);
@@ -28,11 +28,11 @@ export class GameSyncService {
     return this.socket.fromEvent('gameInitialised');
   }
 
-  startNewGame(sessionIdentity: SessionIdentityDto) {
+  startNewGame(sessionIdentity: SessionIdentityDtoType) {
     this.socket.emit('startNewGame', sessionIdentity);
   }
 
-  endGame(sessionIdentity: SessionIdentityDto) {
+  endGame(sessionIdentity: SessionIdentityDtoType) {
     this.socket.emit('endGame', sessionIdentity);
   }
 

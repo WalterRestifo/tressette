@@ -10,10 +10,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { GameSyncService } from '../../services/game-sync.service';
 import { Player } from '../../models/player.model';
 import { SessionIdentityService } from '../../services/session-identity.service';
-import { DeckSingleCardDto } from '../../models/dtos/deckSingleCard.dto';
+import { DeckSingleCardDtoType } from '../../models/dtos/deckSingleCard.dto';
 
 type DialogData = {
-  data: DeckSingleCardDto;
+  data: DeckSingleCardDtoType;
   player: Player;
 };
 
@@ -34,7 +34,7 @@ export class SingleCardDialogComponent {
   sessionIdentitySvc = inject(SessionIdentityService);
   player = this.data.player;
 
-  playSingleCard(cardData: DeckSingleCardDto) {
+  playSingleCard(cardData: DeckSingleCardDtoType) {
     this.dialogRef.close();
     this.gameSync.playCard(
       cardData,
