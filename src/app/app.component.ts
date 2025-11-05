@@ -10,6 +10,7 @@ import { InitialScreenComponent } from './components/initial-screen/initial-scre
 import { DeckSingleCardDto } from './models/dtos/deckSingleCard.dto';
 import { CardSuitEnum, PlayerEnum } from './models/enums';
 import { SessionIdentityService } from './services/session-identity.service';
+import { parseDTO } from './models/dtos/gameData.dto';
 
 @Component({
   selector: 'app-root',
@@ -28,21 +29,16 @@ export class AppComponent implements OnInit, OnDestroy {
   private sessionIdentitySvc = inject(SessionIdentityService);
   isGameOver = false;
   winner: Player | undefined;
-  /*   
-  startNewGame = this.gameManager.startNewGame;
-  endGame = this.gameManager.endGame;
-  normalizePoints = this.gameManager.normalizePoints; */
 
-  //todo: look if I really need this placeholders
   player = new Player('placeholder');
   currentPlayerName = PlayerEnum.Player1;
   private subscriptions = new Subscription();
   pointFactor = 3;
   isGameInitialised = false;
   inThisTrickPlayedCards: {
-    player1: DeckSingleCardDto | undefined;
-    player2: DeckSingleCardDto | undefined;
-  } = { player1: undefined, player2: undefined };
+    player1?: DeckSingleCardDto;
+    player2?: DeckSingleCardDto;
+  } = {};
   leadingSuit: CardSuitEnum | undefined;
 
   get hand() {
@@ -60,14 +56,27 @@ export class AppComponent implements OnInit, OnDestroy {
     const playedCardSub = this.gameSync
       .getNewPlayedCard()
       .subscribe((gameData) => {
-        this.isGameOver = gameData.gameEnded;
-        this.currentPlayerName = gameData.currentPlayerName;
-        this.inThisTrickPlayedCards = gameData.inThisTrickPlayedCards;
-        this.leadingSuit = gameData.leadingSuit;
+        const gameDataDto = parseDTO(gameData);
+        if (gameDataDto.success) {
+          const {
+            gameEnded,
+            currentPlayerName,
+            inThisTrickPlayedCards,
+            leadingSuit,
+            player,
+          } = gameDataDto.data;
 
-        if (gameData.player.name === this.player.name) {
-          // update the hand of the own player
-          this.player = gameData.player;
+          this.isGameOver = gameEnded;
+          this.currentPlayerName = currentPlayerName;
+          this.inThisTrickPlayedCards = inThisTrickPlayedCards;
+          this.leadingSuit = leadingSuit;
+
+          if (player.name === this.player.name) {
+            // update the hand of the own player
+            this.player = gameData.player;
+          }
+        } else {
+          console.error(gameDataDto.error);
         }
       });
 
@@ -76,18 +85,32 @@ export class AppComponent implements OnInit, OnDestroy {
     const gameInitialisedSub = this.gameSync
       .getInitGameData()
       .subscribe((gameData) => {
-        this.player = gameData.player;
-        this.isGameOver = gameData.gameEnded;
-        this.currentPlayerName = gameData.currentPlayerName;
-        this.isGameInitialised = true;
-        this.sessionIdentitySvc.set(gameData.sessionIdentity);
+        const gameDataDto = parseDTO(gameData);
+        if (gameDataDto.success) {
+          const { player, gameEnded, currentPlayerName, sessionIdentity } =
+            gameDataDto.data;
+          this.player = player;
+          this.isGameOver = gameEnded;
+          this.currentPlayerName = currentPlayerName;
+          this.isGameInitialised = true;
+          this.sessionIdentitySvc.set(sessionIdentity);
+        } else {
+          console.error(gameDataDto.error);
+        }
       });
 
     this.subscriptions.add(gameInitialisedSub);
 
     const gameEndedSub = this.gameSync.getGameEnded().subscribe((gameData) => {
-      this.isGameOver = gameData.gameEnded;
-      this.winner = gameData.winner;
+      const gameDataDto = parseDTO(gameData);
+      if (gameDataDto.success) {
+        const { gameEnded, winner } = gameDataDto.data;
+
+        this.isGameOver = gameEnded;
+        this.winner = winner;
+      } else {
+        console.error(gameDataDto.error);
+      }
     });
 
     this.subscriptions.add(gameEndedSub);
@@ -95,12 +118,26 @@ export class AppComponent implements OnInit, OnDestroy {
     const newTrickUpdateSub = this.gameSync
       .getNewTrickUpdate()
       .subscribe((gameData) => {
-        this.isGameOver = gameData.gameEnded;
-        this.currentPlayerName = gameData.currentPlayerName;
-        this.inThisTrickPlayedCards = gameData.inThisTrickPlayedCards;
-        this.leadingSuit = gameData.leadingSuit;
-        this.winner = gameData.winner;
-        this.player = gameData.player;
+        const gameDataDto = parseDTO(gameData);
+        if (gameDataDto.success) {
+          const {
+            gameEnded,
+            currentPlayerName,
+            inThisTrickPlayedCards,
+            leadingSuit,
+            winner,
+            player,
+          } = gameDataDto.data;
+
+          this.isGameOver = gameEnded;
+          this.currentPlayerName = currentPlayerName;
+          this.inThisTrickPlayedCards = inThisTrickPlayedCards;
+          this.leadingSuit = leadingSuit;
+          this.winner = winner;
+          this.player = player;
+        } else {
+          console.error(gameDataDto.error);
+        }
       });
 
     this.subscriptions.add(newTrickUpdateSub);
