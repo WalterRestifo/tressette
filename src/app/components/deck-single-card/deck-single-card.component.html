@@ -1,6 +1,6 @@
 <button (click)="openDialog()">
-  <mat-card>
-    <mat-card-header>{{ suit }}</mat-card-header>
-    <mat-card-content>{{ numberValue }}</mat-card-content>
-  </mat-card>
+  <div
+    class="w-[9vw] aspect-2/3 bg-cover bg-center rounded-sm"
+    [style.backgroundImage]="backgroundImageUrl"
+  ></div>
 </button>

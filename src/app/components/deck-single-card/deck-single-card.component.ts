@@ -22,6 +22,10 @@ export class DeckSingleCardComponent {
 
   isPlayable = signal(false);
 
+  get backgroundImageUrl(): string {
+    return `url('img/${this.suit}${this.numberValue}.png')`;
+  }
+
   private checkIfPlayable() {
     const ownName = this.player().name;
     const hand = this.player().hand;
