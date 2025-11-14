@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { SessionIdentityDtoType } from '../models/dtos/sessionIdentity.dto';
-import { PlayerEnum } from '../models/enums';
+import { SessionIdentityDtoType } from '../../models/dtos/sessionIdentity.dto';
+import { PlayerEnum } from '../../models/enums';
 
 @Injectable({ providedIn: 'root' })
 export class SessionIdentityService {

@@ -7,14 +7,14 @@ import {
   MatDialogClose,
 } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-import { GameSyncService } from '../../services/game-sync.service';
-import { Player } from '../../models/player.model';
-import { SessionIdentityService } from '../../services/session-identity.service';
+import { GameSyncService } from '../../services/game-sync/game-sync.service';
+import { SessionIdentityService } from '../../services/session-identity/session-identity.service';
 import { DeckSingleCardDtoType } from '../../models/dtos/deckSingleCard.dto';
+import { PlayerDtoType } from '../../models/dtos/player.dto';
 
 type DialogData = {
   data: DeckSingleCardDtoType;
-  player: Player;
+  player: PlayerDtoType;
 };
 
 @Component({

@@ -1,7 +1,7 @@
 import { Component, inject, input } from '@angular/core';
 import { Player } from '../../models/player.model';
-import { GameSyncService } from '../../services/game-sync.service';
-import { SessionIdentityService } from '../../services/session-identity.service';
+import { GameSyncService } from '../../services/game-sync/game-sync.service';
+import { SessionIdentityService } from '../../services/session-identity/session-identity.service';
 import { MatButton } from '@angular/material/button';
 
 @Component({

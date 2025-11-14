@@ -4,12 +4,12 @@ import { DeckSingleCardComponent } from './components/deck-single-card/deck-sing
 import { Subscription } from 'rxjs';
 import { Player } from './models/player.model';
 import { MatButtonModule } from '@angular/material/button';
-import { GameSyncService } from './services/game-sync.service';
+import { GameSyncService } from './services/game-sync/game-sync.service';
 import { EndGameScreenComponent } from './components/end-game-screen/end-game-screen.component';
 import { InitialScreenComponent } from './components/initial-screen/initial-screen.component';
 import { DeckSingleCardDtoType } from './models/dtos/deckSingleCard.dto';
 import { CardSuitEnum, PlayerEnum } from './models/enums';
-import { SessionIdentityService } from './services/session-identity.service';
+import { SessionIdentityService } from './services/session-identity/session-identity.service';
 import { parseDTO } from './models/dtos/gameData.dto';
 
 @Component({

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
-import { Player } from '../models/player.model';
-import { SessionDto } from '../models/dtos/session.dto';
-import { SessionIdentityDtoType } from '../models/dtos/sessionIdentity.dto';
-import type { DeckSingleCardDtoType } from '../models/dtos/deckSingleCard.dto';
+import { Player } from '../../models/player.model';
+import { SessionDto } from '../../models/dtos/session.dto';
+import { SessionIdentityDtoType } from '../../models/dtos/sessionIdentity.dto';
+import type { DeckSingleCardDtoType } from '../../models/dtos/deckSingleCard.dto';
 
 @Injectable({
   providedIn: 'root',

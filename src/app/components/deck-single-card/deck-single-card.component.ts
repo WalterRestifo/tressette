@@ -2,9 +2,9 @@ import { Component, effect, inject, input, signal } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { SingleCardDialogComponent } from '../single-card-dialog/single-card-dialog.component';
-import { Player } from '../../models/player.model';
 import { CardSuitEnum, PlayerEnum } from '../../models/enums';
 import { DeckSingleCardDtoType } from '../../models/dtos/deckSingleCard.dto';
+import { PlayerDtoType } from '../../models/dtos/player.dto';
 
 @Component({
   selector: 'app-deck-single-card',
@@ -16,7 +16,7 @@ export class DeckSingleCardComponent {
 
   dialog = inject(MatDialog);
 
-  player = input.required<Player>();
+  player = input.required<PlayerDtoType>();
   leadingSuit = input.required<CardSuitEnum | undefined>();
   currentPlayerName = input<PlayerEnum>();
 

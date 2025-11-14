@@ -6,7 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { PlayerEnum, SessionTypeEnum } from '../../models/enums';
 import { SessionDto } from '../../models/dtos/session.dto';
-import { GameSyncService } from '../../services/game-sync.service';
+import { GameSyncService } from '../../services/game-sync/game-sync.service';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({

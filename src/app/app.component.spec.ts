@@ -1,10 +1,37 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { GameSyncService } from './services/game-sync/game-sync.service';
+import { SessionIdentityService } from './services/session-identity/session-identity.service';
 
 describe('AppComponent', () => {
+  let mockGameSyncSvc: jasmine.SpyObj<GameSyncService>;
+  let mockSessionIdentitySvc: jasmine.SpyObj<SessionIdentityService>;
+
   beforeEach(async () => {
+    mockGameSyncSvc = jasmine.createSpyObj('GameSyncService', [
+      'getNewPlayedCard',
+      'getInitGameData',
+      'getGameEnded',
+      'getNewTrickUpdate',
+      'endGame',
+    ]);
+    mockSessionIdentitySvc = jasmine.createSpyObj('SessionIdentityService', [
+      'get',
+      'set',
+    ]);
+
     await TestBed.configureTestingModule({
       imports: [AppComponent],
+      providers: [
+        {
+          provide: GameSyncService,
+          useValue: mockGameSyncSvc,
+        },
+        {
+          provide: SessionIdentityService,
+          useValue: mockSessionIdentitySvc,
+        },
+      ],
     }).compileComponents();
   });
 
@@ -12,18 +39,5 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
-  });
-
-  it(`should have the 'tressette' title`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('tressette');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, tressette');
   });
 });
