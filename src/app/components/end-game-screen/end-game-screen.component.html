@@ -1,3 +1,7 @@
 <h2>Game Over</h2>
-<p>{{ winner()?.name ? "" : "no" }} player {{ winner()?.name }} won!</p>
+@if(winner()?.name){
+<p>{{ winner()?.name }} won!</p>
+} @else {
+<p>There is no winner.</p>
+}
 <button matButton="elevated" (click)="startNewGame()">play again</button>

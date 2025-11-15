@@ -1,8 +1,8 @@
 import { Component, inject, input } from '@angular/core';
-import { Player } from '../../models/player.model';
 import { GameSyncService } from '../../services/game-sync/game-sync.service';
 import { SessionIdentityService } from '../../services/session-identity/session-identity.service';
 import { MatButton } from '@angular/material/button';
+import { PlayerDtoType } from '../../models/dtos/player.dto';
 
 @Component({
   selector: 'app-end-game-screen',
@@ -11,7 +11,7 @@ import { MatButton } from '@angular/material/button';
   styleUrl: './end-game-screen.component.scss',
 })
 export class EndGameScreenComponent {
-  winner = input<Player | undefined>();
+  winner = input<PlayerDtoType | undefined>();
   pointFactor = 3;
   gameSync = inject(GameSyncService);
   sessionIdentitySvc = inject(SessionIdentityService);
