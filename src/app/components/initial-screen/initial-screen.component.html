@@ -1,8 +1,12 @@
 <h1>Tressette Online</h1>
 <form [formGroup]="form" class="flex flex-col">
   <mat-radio-group [formControl]="sessionControl">
-    <mat-radio-button [value]="sessionType.New">New game</mat-radio-button>
-    <mat-radio-button [value]="sessionType.Join">Join game</mat-radio-button>
+    <mat-radio-button id="new-game" [value]="sessionType.New"
+      >New game</mat-radio-button
+    >
+    <mat-radio-button id="join-game" [value]="sessionType.Join"
+      >Join game</mat-radio-button
+    >
   </mat-radio-group>
   @if(form.value.session === sessionType.Join){
   <mat-form-field>
@@ -11,6 +15,7 @@
       matInput
       [formControl]="sessionIdControl"
       placeholder="(i.e. awesomeSession123)"
+      id="join-session-input"
     />
   </mat-form-field>
   } @if(form.value.session === sessionType.New){
@@ -20,6 +25,7 @@
       matInput
       [formControl]="sessionIdControl"
       placeholder="(i.e. awesomeSession123)"
+      id="new-session-input"
     />
   </mat-form-field>
   }
