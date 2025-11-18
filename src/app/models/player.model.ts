@@ -1,4 +1,5 @@
 import { DeckSingleCardDtoType } from './dtos/deckSingleCard.dto';
+import { PlayerEnum } from './enums';
 
 export class Player {
   hand: DeckSingleCardDtoType[] = [];
@@ -6,7 +7,7 @@ export class Player {
   isOwnTurn = false;
   inThisTrickPlayedCard?: DeckSingleCardDtoType;
   points = 0;
-  constructor(name: string) {
+  constructor(name: PlayerEnum) {
     this.name = name;
   }
 }

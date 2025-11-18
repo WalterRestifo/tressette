@@ -5,7 +5,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { GameSyncService } from '../../services/game-sync/game-sync.service';
 import { SessionIdentityService } from '../../services/session-identity/session-identity.service';
 import { PlayerEnum } from '../../models/enums';
-import { mockData, mockPlayer } from '../../models/mocks/mocks';
+import { mockCard, mockPlayer } from '../../models/mocks/mocks';
 import { MatButtonHarness } from '@angular/material/button/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { HarnessLoader } from '@angular/cdk/testing';
@@ -18,7 +18,7 @@ describe('SingleCardDialogComponent', () => {
   let mockSessionIdentitySvc: jasmine.SpyObj<SessionIdentityService>;
   let loader: HarnessLoader;
 
-  let mockDialogData = { data: mockData, player: mockPlayer };
+  let mockDialogData = { data: mockCard, player: mockPlayer };
 
   let mockSession = { sessionId: 'testId', player: PlayerEnum.Player1 };
 
@@ -57,19 +57,11 @@ describe('SingleCardDialogComponent', () => {
     );
 
     await playBtn.click();
-    expect(mockGameSyncSvc.playCard).toHaveBeenCalledWith(
+    expect(mockGameSyncSvc.playCard).toHaveBeenCalledOnceWith(
       mockDialogData.data,
       mockDialogData.player,
       mockSessionIdentitySvc.get()
     );
-    expect(mockDialogRef.close).toHaveBeenCalled();
-  });
-
-  it('should be possible to close with a close button', async () => {
-    const closeBtn = await loader.getHarness(
-      MatButtonHarness.with({ text: 'Cancel' })
-    );
-    await closeBtn.click();
     expect(mockDialogRef.close).toHaveBeenCalled();
   });
 });

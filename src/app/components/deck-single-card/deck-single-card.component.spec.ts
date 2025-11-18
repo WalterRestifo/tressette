@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DeckSingleCardComponent } from './deck-single-card.component';
 import { MatDialog } from '@angular/material/dialog';
 import { CardSuitEnum, PlayerEnum } from '../../models/enums';
-import { mockData, mockPlayer } from '../../models/mocks/mocks';
+import { mockCard, mockPlayer } from '../../models/mocks/mocks';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
@@ -27,7 +27,7 @@ describe('DeckSingleCardComponent', () => {
 
     fixture = TestBed.createComponent(DeckSingleCardComponent);
     component = fixture.componentInstance;
-    fixture.componentRef.setInput('data', mockData);
+    fixture.componentRef.setInput('data', mockCard);
     fixture.componentRef.setInput('player', mockPlayer);
     fixture.componentRef.setInput('leadingSuit', CardSuitEnum.Clubs);
     fixture.componentRef.setInput('currentPlayerName', PlayerEnum.Player1);
@@ -54,7 +54,7 @@ describe('DeckSingleCardComponent', () => {
   it('should not open the dialog, when the suit is not the leading suit and the player has a playable card in the hand', () => {
     const playerWithLeadingSuitCard = {
       ...mockPlayer,
-      hand: [...mockPlayer.hand, { ...mockData, suit: CardSuitEnum.Coins }],
+      hand: [...mockPlayer.hand, { ...mockCard, suit: CardSuitEnum.Coins }],
     };
     fixture.componentRef.setInput('player', playerWithLeadingSuitCard);
     fixture.componentRef.setInput('leadingSuit', CardSuitEnum.Coins);
@@ -81,7 +81,7 @@ describe('DeckSingleCardComponent', () => {
   });
 
   it('should have the right image background', () => {
-    const backgroundImageUrl = `url("img/${mockData.suit}${mockData.numberValue}.png")`;
+    const backgroundImageUrl = `url("img/${mockCard.suit}${mockCard.numberValue}.png")`;
     const picture = fixture.debugElement.query(By.css('button > div'));
     expect(picture.styles['backgroundImage']).toEqual(backgroundImageUrl);
   });

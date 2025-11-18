@@ -8,6 +8,7 @@ import { MatRadioGroupHarness } from '@angular/material/radio/testing';
 import { MatInputHarness } from '@angular/material/input/testing';
 import { MatButtonHarness } from '@angular/material/button/testing';
 import { PlayerEnum, SessionTypeEnum } from '../../models/enums';
+import { mockSessionId } from '../../models/mocks/mocks';
 
 describe('InitialScreenComponent', () => {
   let component: InitialScreenComponent;
@@ -38,7 +39,6 @@ describe('InitialScreenComponent', () => {
   });
 
   it('should submit correctly when creating a new game', async () => {
-    const newSessionId = 'testNewSession';
     const radioGroup = await loader.getHarness(MatRadioGroupHarness);
     await radioGroup.checkRadioButton({ selector: '#new-game' });
     fixture.detectChanges();
@@ -46,19 +46,18 @@ describe('InitialScreenComponent', () => {
     const newSessionTextField = await loader.getHarness(
       MatInputHarness.with({ selector: '#new-session-input' })
     );
-    await newSessionTextField.setValue(newSessionId);
+    await newSessionTextField.setValue(mockSessionId);
     const submitButton = await loader.getHarness(MatButtonHarness);
     await submitButton.click();
 
-    expect(mockSyncSvc.sendSessionData).toHaveBeenCalledWith({
-      sessionId: newSessionId,
+    expect(mockSyncSvc.sendSessionData).toHaveBeenCalledOnceWith({
+      sessionId: mockSessionId,
       sessionType: SessionTypeEnum.New,
       player: PlayerEnum.Player1,
     });
   });
 
   it('should submit correctly when joining an existing game', async () => {
-    const existingSessionId = 'testExistingSession';
     const radioGroup = await loader.getHarness(MatRadioGroupHarness);
     await radioGroup.checkRadioButton({ selector: '#join-game' });
     fixture.detectChanges();
@@ -66,12 +65,12 @@ describe('InitialScreenComponent', () => {
     const joinSessionTextField = await loader.getHarness(
       MatInputHarness.with({ selector: '#join-session-input' })
     );
-    await joinSessionTextField.setValue(existingSessionId);
+    await joinSessionTextField.setValue(mockSessionId);
     const submitButton = await loader.getHarness(MatButtonHarness);
     await submitButton.click();
 
-    expect(mockSyncSvc.sendSessionData).toHaveBeenCalledWith({
-      sessionId: existingSessionId,
+    expect(mockSyncSvc.sendSessionData).toHaveBeenCalledOnceWith({
+      sessionId: mockSessionId,
       sessionType: SessionTypeEnum.Join,
       player: PlayerEnum.Player2,
     });

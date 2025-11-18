@@ -56,7 +56,7 @@ describe('EndGameScreenComponent', () => {
   it('should start a new game, when the button to play again is clicked', () => {
     const button = fixture.debugElement.query(By.css('button'));
     button.triggerEventHandler('click');
-    expect(mockGameSyncSvc.startNewGame).toHaveBeenCalledWith(
+    expect(mockGameSyncSvc.startNewGame).toHaveBeenCalledOnceWith(
       mockSessionIdentitySvc.get()
     );
   });

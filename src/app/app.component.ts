@@ -11,6 +11,7 @@ import { DeckSingleCardDtoType } from './models/dtos/deckSingleCard.dto';
 import { CardSuitEnum, PlayerEnum } from './models/enums';
 import { SessionIdentityService } from './services/session-identity/session-identity.service';
 import { parseDTO } from './models/dtos/gameData.dto';
+import { PlayerDtoType } from './models/dtos/player.dto';
 
 @Component({
   selector: 'app-root',
@@ -28,9 +29,9 @@ export class AppComponent implements OnInit, OnDestroy {
   private gameSync = inject(GameSyncService);
   private sessionIdentitySvc = inject(SessionIdentityService);
   isGameOver = false;
-  winner: Player | undefined;
+  winner: PlayerDtoType | undefined;
 
-  player = new Player('placeholder');
+  player: PlayerDtoType | undefined;
   currentPlayerName = PlayerEnum.Player1;
   private subscriptions = new Subscription();
   pointFactor = 3;
@@ -42,7 +43,7 @@ export class AppComponent implements OnInit, OnDestroy {
   leadingSuit: CardSuitEnum | undefined;
 
   get hand() {
-    return this.player.hand;
+    return this.player?.hand;
   }
 
   get card1() {
@@ -50,6 +51,10 @@ export class AppComponent implements OnInit, OnDestroy {
   }
   get card2() {
     return this.inThisTrickPlayedCards.player2;
+  }
+
+  get isOwnTurn() {
+    return this.player?.isOwnTurn;
   }
 
   ngOnInit(): void {
@@ -71,7 +76,7 @@ export class AppComponent implements OnInit, OnDestroy {
           this.inThisTrickPlayedCards = inThisTrickPlayedCards;
           this.leadingSuit = leadingSuit;
 
-          if (player.name === this.player.name) {
+          if (player.name === this.player?.name) {
             // update the hand of the own player
             this.player = gameData.player;
           }

@@ -1,8 +1,10 @@
-<mat-dialog-content class="h-80"
-  >{{ data.data.suit }} and {{ data.data.numberValue }}</mat-dialog-content
->
-<mat-dialog-actions align="end">
-  <button matButton mat-dialog-close>Cancel</button>
+<mat-dialog-content>
+  <div
+    class="w-[11vw] aspect-2/3 bg-cover bg-center rounded-sm m-auto"
+    [style.backgroundImage]="backgroundImageUrl"
+  ></div
+></mat-dialog-content>
+<mat-dialog-actions align="center">
   <button matButton cdkFocusInitial (click)="playSingleCard(data.data)">
     Play card
   </button>

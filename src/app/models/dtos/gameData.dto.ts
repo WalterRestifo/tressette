@@ -17,7 +17,7 @@ const gameDataDto = z.object({
   winner: playerDto.optional(),
 });
 
-export type UsersDto = z.infer<typeof gameDataDto>;
+export type GameDataDto = z.infer<typeof gameDataDto>;
 
 export function parseDTO(source: unknown) {
   return gameDataDto.safeParse(source);

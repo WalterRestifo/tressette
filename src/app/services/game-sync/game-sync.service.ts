@@ -11,6 +11,10 @@ import type { DeckSingleCardDtoType } from '../../models/dtos/deckSingleCard.dto
 export class GameSyncService {
   constructor(private socket: Socket) {}
 
+  endGame(sessionIdentity: SessionIdentityDtoType) {
+    this.socket.emit('endGame', sessionIdentity);
+  }
+
   playCard(
     card: DeckSingleCardDtoType,
     player: Player,
@@ -20,32 +24,28 @@ export class GameSyncService {
     this.socket.emit('playedCard', payload);
   }
 
-  getNewPlayedCard() {
-    return this.socket.fromEvent('newCardPlayed');
-  }
-
-  getInitGameData() {
-    return this.socket.fromEvent('gameInitialised');
+  sendSessionData(sessionData: SessionDto) {
+    this.socket.emit('sessionDataSended', sessionData);
   }
 
   startNewGame(sessionIdentity: SessionIdentityDtoType) {
     this.socket.emit('startNewGame', sessionIdentity);
   }
 
-  endGame(sessionIdentity: SessionIdentityDtoType) {
-    this.socket.emit('endGame', sessionIdentity);
+  getError() {
+    return this.socket.fromEvent('error');
   }
 
   getGameEnded() {
     return this.socket.fromEvent('gameEnded');
   }
 
-  sendSessionData(sessionData: SessionDto) {
-    this.socket.emit('sessionDataSended', sessionData);
+  getInitGameData() {
+    return this.socket.fromEvent('gameInitialised');
   }
 
-  getError() {
-    return this.socket.fromEvent('error');
+  getNewPlayedCard() {
+    return this.socket.fromEvent('newCardPlayed');
   }
 
   getNewTrickUpdate() {

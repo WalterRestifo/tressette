@@ -34,6 +34,10 @@ export class SingleCardDialogComponent {
   sessionIdentitySvc = inject(SessionIdentityService);
   player = this.data.player;
 
+  get backgroundImageUrl(): string {
+    return `url('img/${this.data.data.suit}${this.data.data.numberValue}.png')`;
+  }
+
   playSingleCard(cardData: DeckSingleCardDtoType) {
     this.dialogRef.close();
     this.gameSync.playCard(
