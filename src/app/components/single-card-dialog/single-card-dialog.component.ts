@@ -1,4 +1,4 @@
-import { Component, inject, input, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialogContent,
@@ -19,12 +19,7 @@ type DialogData = {
 
 @Component({
   selector: 'app-single-card-dialog',
-  imports: [
-    MatDialogContent,
-    MatDialogActions,
-    MatButtonModule,
-    MatDialogClose,
-  ],
+  imports: [MatDialogContent, MatDialogActions, MatButtonModule],
   templateUrl: './single-card-dialog.component.html',
 })
 export class SingleCardDialogComponent {

@@ -12,7 +12,7 @@ import { PlayerDtoType } from '../../models/dtos/player.dto';
   templateUrl: './deck-single-card.component.html',
 })
 export class DeckSingleCardComponent {
-  data = input.required<DeckSingleCardDtoType>();
+  data = input<DeckSingleCardDtoType>();
 
   dialog = inject(MatDialog);
 
@@ -30,7 +30,7 @@ export class DeckSingleCardComponent {
     const ownName = this.player().name;
     const hand = this.player().hand;
     const leadingSuit = this.leadingSuit();
-    const suit = this.data().suit;
+    const suit = this.data()?.suit;
 
     if (this.currentPlayerName() !== ownName) return false;
 
@@ -55,11 +55,11 @@ export class DeckSingleCardComponent {
   }
 
   get numberValue() {
-    return this.data().numberValue;
+    return this.data()?.numberValue;
   }
 
   get suit() {
-    return this.data().suit;
+    return this.data()?.suit;
   }
 
   openDialog() {
@@ -72,9 +72,9 @@ export class DeckSingleCardComponent {
         data: {
           numberValue: this.numberValue,
           suit: this.suit,
-          gameValue: this.data().gameValue,
-          pointValue: this.data().pointValue,
-          id: this.data().id,
+          gameValue: this.data()?.gameValue,
+          pointValue: this.data()?.pointValue,
+          id: this.data()?.id,
         },
         player: this.player(),
       },

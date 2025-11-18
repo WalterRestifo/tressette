@@ -12,6 +12,7 @@ import { CardSuitEnum, PlayerEnum } from './models/enums';
 import { SessionIdentityService } from './services/session-identity/session-identity.service';
 import { parseDTO } from './models/dtos/gameData.dto';
 import { PlayerDtoType } from './models/dtos/player.dto';
+import { parseErrorDTO } from './models/dtos/backendError.dto';
 
 @Component({
   selector: 'app-root',
@@ -146,6 +147,14 @@ export class AppComponent implements OnInit, OnDestroy {
       });
 
     this.subscriptions.add(newTrickUpdateSub);
+
+    const errorSub = this.gameSync.getError().subscribe((error) => {
+      const errorDto = parseErrorDTO(error);
+      if (errorDto.success) console.error(errorDto.data.message);
+      else console.error(errorDto.error);
+    });
+
+    this.subscriptions.add(errorSub);
   }
 
   ngOnDestroy(): void {
