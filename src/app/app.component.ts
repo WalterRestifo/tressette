@@ -58,6 +58,10 @@ export class AppComponent implements OnInit, OnDestroy {
     return this.player?.isOwnTurn;
   }
 
+  get fromOpponentLastDrawnCard() {
+    return this.player?.fromOpponentPlayerLastDrawnCard;
+  }
+
   ngOnInit(): void {
     const playedCardSub = this.gameSync
       .getNewPlayedCard()

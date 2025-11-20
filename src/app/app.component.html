@@ -9,12 +9,30 @@
       class="game-table relative w-full h-[70dvh] bg-[url('/img/wooden-desk.png')] bg-cover bg-center"
     >
       @if (isOwnTurn) {
-      <h2 class="text-white text-center py-8 text-6xl">It's your turn</h2>
+      <h2 class="text-white text-center py-8 text-4xl">It's your turn</h2>
       } @else {
-      <h2 class="text-white text-center py-8 text-6xl">
+      <h2 class="text-white text-center py-8 text-4xl">
         It's the turn of {{ currentPlayerName }}
       </h2>
       }
+      <div class="flex flex-col items-center" id="opponents-last-drawn-card">
+        <h3
+          class="text-white"
+          [style.visibility]="fromOpponentLastDrawnCard ? 'visible' : 'hidden'"
+        >
+          Opponents last drawn card
+        </h3>
+        <div
+          [style.visibility]="fromOpponentLastDrawnCard ? 'visible' : 'hidden'"
+        >
+          <app-deck-single-card
+            [data]="fromOpponentLastDrawnCard"
+            [player]="player!"
+            [leadingSuit]="leadingSuit"
+            [isDisabled]="true"
+          />
+        </div>
+      </div>
       <div class="flex items-center justify-around">
         <div class="flex flex-col items-center">
           <h3
@@ -53,7 +71,12 @@
         <span class="text-white mx-4" id="points"
           >Your points: {{ normalizePoints(player!.points) }}</span
         >
-        <button matButton="elevated" class="mx-4" (click)="endGame()">
+        <button
+          matButton="elevated"
+          class="mx-4"
+          id="quit-btn"
+          (click)="endGame()"
+        >
           quit game
         </button>
       </div>

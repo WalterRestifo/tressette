@@ -16,6 +16,7 @@ export class DeckSingleCardComponent {
 
   dialog = inject(MatDialog);
 
+  isDisabled = input<boolean>();
   player = input.required<PlayerDtoType>();
   leadingSuit = input.required<CardSuitEnum | undefined>();
   currentPlayerName = input<PlayerEnum>();
@@ -33,6 +34,9 @@ export class DeckSingleCardComponent {
     const suit = this.data()?.suit;
 
     if (this.currentPlayerName() !== ownName) return false;
+
+    // Sometimes a card should only be shown, like for the opponents last drawn card.
+    if (this.isDisabled()) return false;
 
     // If the first card of the trick was not yet played, every card can be played
     if (leadingSuit === undefined) return true;

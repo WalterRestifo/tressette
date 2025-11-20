@@ -24,6 +24,7 @@ describe('AppComponent', () => {
       'getGameEnded',
       'getNewTrickUpdate',
       'endGame',
+      'getError',
     ]);
     mockSessionIdentitySvc = jasmine.createSpyObj('SessionIdentityService', [
       'get',
@@ -54,6 +55,7 @@ describe('AppComponent', () => {
     mockGameSyncSvc.getInitGameData.and.returnValue(of());
     mockGameSyncSvc.getNewTrickUpdate.and.returnValue(of());
     mockGameSyncSvc.getGameEnded.and.returnValue(of());
+    mockGameSyncSvc.getError.and.returnValue(of());
     fixture = TestBed.createComponent(AppComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -89,7 +91,14 @@ describe('AppComponent', () => {
     ).nativeElement;
     expect(pointsTag.textContent).toBe('Your points: 0');
 
-    const quitBtn = fixture.debugElement.query(By.css('button')).nativeElement;
+    const opponentsLastDrawnCard = fixture.debugElement.query(
+      By.css('#opponents-last-drawn-card')
+    );
+    expect(opponentsLastDrawnCard).toBeTruthy();
+
+    const quitBtn = fixture.debugElement.query(
+      By.css('#quit-btn')
+    ).nativeElement;
     expect(quitBtn.textContent).toBe(' quit game ');
 
     const cardListElements = fixture.debugElement.queryAll(By.css('li'));
