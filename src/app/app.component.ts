@@ -167,7 +167,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   //todo: make a shared util or something, because the same is in endGameScreen component
   normalizePoints(points: number) {
-    return points / this.pointFactor;
+    return (points / this.pointFactor).toFixed(2);
   }
 
   endGame() {
