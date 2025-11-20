@@ -65,6 +65,8 @@ The winner of each trick leads the next one.
 
 After each trick each player takes a card from the deck. The winner of the trick takes the card as first.
 
+The newly drawn card is shown to the opponent.
+
 After the deck is empty, the players don`t take any more cards after the tricks.
 
 After all cards are played, the round ends and scoring begins.
