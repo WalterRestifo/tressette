@@ -1,11 +1,12 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
+import { environment } from './../environments/environment';
 
 import { routes } from './app.routes';
 import { SocketIoConfig, provideSocketIo } from 'ngx-socket-io';
 
 const config: SocketIoConfig = {
-  url: 'https://tressette-863401855094.europe-west1.run.app/',
+  url: environment.socketUrl,
   options: {},
 };
 
