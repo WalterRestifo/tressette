@@ -4,7 +4,10 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { SocketIoConfig, provideSocketIo } from 'ngx-socket-io';
 
-const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
+const config: SocketIoConfig = {
+  url: 'https://tressette-863401855094.europe-west1.run.app/',
+  options: {},
+};
 
 export const appConfig: ApplicationConfig = {
   providers: [
