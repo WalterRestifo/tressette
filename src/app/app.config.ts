@@ -5,7 +5,7 @@ import { routes } from './app.routes';
 import { SocketIoConfig, provideSocketIo } from 'ngx-socket-io';
 
 const config: SocketIoConfig = {
-  url: 'https://tressette-863401855094.europe-west1.run.app/',
+  url: 'https://tressette-863401855094.europe-west1.run.app',
   options: {},
 };
 
