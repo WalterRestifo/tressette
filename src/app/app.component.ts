@@ -1,8 +1,17 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  inject,
+  OnDestroy,
+  OnInit,
+  QueryList,
+  ViewChild,
+  ViewChildren,
+} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { DeckSingleCardComponent } from './components/deck-single-card/deck-single-card.component';
 import { Subscription } from 'rxjs';
-import { Player } from './models/player.model';
 import { MatButtonModule } from '@angular/material/button';
 import { GameSyncService } from './services/game-sync/game-sync.service';
 import { EndGameScreenComponent } from './components/end-game-screen/end-game-screen.component';
@@ -27,6 +36,9 @@ import { parseErrorDTO } from './models/dtos/backendError.dto';
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit, OnDestroy {
+  @ViewChild('deckRef') deckRef!: ElementRef;
+  @ViewChildren('handCardImageRef') handCardImageRef!: QueryList<ElementRef>;
+
   private gameSync = inject(GameSyncService);
   private sessionIdentitySvc = inject(SessionIdentityService);
   isGameOver = false;
@@ -42,6 +54,7 @@ export class AppComponent implements OnInit, OnDestroy {
     player2?: DeckSingleCardDtoType;
   } = {};
   leadingSuit: CardSuitEnum | undefined;
+  areInitialCardDealed = false;
 
   get hand() {
     return this.player?.hand;
@@ -97,6 +110,7 @@ export class AppComponent implements OnInit, OnDestroy {
       .subscribe((gameData) => {
         const gameDataDto = parseDTO(gameData);
         if (gameDataDto.success) {
+          // initialize game
           const { player, gameEnded, currentPlayerName, sessionIdentity } =
             gameDataDto.data;
           this.player = player;
@@ -159,6 +173,40 @@ export class AppComponent implements OnInit, OnDestroy {
     });
 
     this.subscriptions.add(errorSub);
+  }
+
+  ngAfterViewChecked() {
+    if (this.isGameInitialised && !this.areInitialCardDealed) {
+      this.areInitialCardDealed = true; // prevents multiple triggers
+
+      // animate the dealing of the cards
+      const deckPos = this.deckRef.nativeElement.getBoundingClientRect();
+      this.handCardImageRef.forEach((ref) => {
+        const position = ref.nativeElement.getBoundingClientRect();
+        console.log('position: ', position);
+        const deltaY = deckPos.top - position.top;
+        const deltaX = deckPos.left - position.left;
+
+        ref.nativeElement.animate(
+          [
+            {
+              transformOrigin: 'top left',
+              transform: `translate(${deltaX}px, ${deltaY}px)`,
+            },
+            {
+              transformOrigin: 'top left',
+              transform: 'none',
+            },
+            { transform: 'rotateY(180deg)' },
+          ],
+          {
+            duration: 2000,
+            easing: 'ease-in-out',
+            fill: 'both',
+          }
+        );
+      });
+    }
   }
 
   ngOnDestroy(): void {

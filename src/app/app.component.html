@@ -6,7 +6,7 @@
 <div>
   <div>
     <div
-      class="game-table relative w-full h-[70dvh] bg-[url('/img/wooden-desk.png')] bg-cover bg-center"
+      class="relative w-full h-[70dvh] bg-[url('/img/wooden-desk.png')] bg-cover bg-center"
     >
       @if (isOwnTurn) {
       <h2 class="text-white text-center py-8 text-4xl">It's your turn</h2>
@@ -64,6 +64,12 @@
             />
           </div>
         </div>
+        <div class="w-[9vw] aspect-2/3" #deckRef>
+          <div
+            class="w-[92%] h-full bg-cover bg-center rounded-sm"
+            [style.backgroundImage]="'url(img/card_back.png)'"
+          ></div>
+        </div>
       </div>
     </div>
     <div>
@@ -82,13 +88,27 @@
       </div>
       <ul class="list-none flex flex-wrap justify-around">
         @for(card of hand; track card.id){
-        <li class="mx-1">
-          <app-deck-single-card
-            [data]="card"
-            [player]="player!"
-            [leadingSuit]="leadingSuit"
-            [currentPlayerName]="currentPlayerName"
-          />
+        <li class="mx-1 perspective-normal w-[9vw] aspect-2/3">
+          <div
+            class="w-full h-full relative [transform-style:preserve-3d] [transform:rotateY(180deg)]"
+            #handCardImageRef
+          >
+            <div
+              class="absolute w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)]"
+            >
+              <app-deck-single-card
+                [data]="card"
+                [player]="player!"
+                [leadingSuit]="leadingSuit"
+                [currentPlayerName]="currentPlayerName"
+              />
+            </div>
+
+            <div
+              class="absolute w-[95%] h-full [backface-visibility:hidden] bg-cover bg-center rounded-sm"
+              [style.backgroundImage]="'url(img/card_back.png)'"
+            ></div>
+          </div>
         </li>
         }
       </ul>
