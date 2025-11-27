@@ -181,9 +181,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
       // animate the dealing of the cards
       const deckPos = this.deckRef.nativeElement.getBoundingClientRect();
-      this.handCardImageRef.forEach((ref) => {
+      this.handCardImageRef.forEach((ref, index) => {
         const position = ref.nativeElement.getBoundingClientRect();
-        console.log('position: ', position);
         const deltaY = deckPos.top - position.top;
         const deltaX = deckPos.left - position.left;
 
@@ -200,9 +199,10 @@ export class AppComponent implements OnInit, OnDestroy {
             { transform: 'rotateY(180deg)' },
           ],
           {
-            duration: 2000,
-            easing: 'ease-in-out',
+            duration: 1200,
+            easing: 'linear',
             fill: 'both',
+            delay: index * 300, // staggered dealing
           }
         );
       });
