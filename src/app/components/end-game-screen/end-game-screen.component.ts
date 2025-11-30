@@ -15,9 +15,7 @@ export class EndGameScreenComponent {
   pointFactor = 3;
   gameSync = inject(GameSyncService);
   sessionIdentitySvc = inject(SessionIdentityService);
-  normalizePoints(points: number) {
-    return points / this.pointFactor;
-  }
+
   startNewGame() {
     this.gameSync.startNewGame(this.sessionIdentitySvc.get());
   }

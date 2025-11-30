@@ -22,6 +22,7 @@ import { SessionIdentityService } from './services/session-identity/session-iden
 import { parseDTO } from './models/dtos/gameData.dto';
 import { PlayerDtoType } from './models/dtos/player.dto';
 import { parseErrorDTO } from './models/dtos/backendError.dto';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -31,6 +32,7 @@ import { parseErrorDTO } from './models/dtos/backendError.dto';
     MatButtonModule,
     EndGameScreenComponent,
     InitialScreenComponent,
+    DecimalPipe,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -211,11 +213,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
-  }
-
-  //todo: make a shared util or something, because the same is in endGameScreen component
-  normalizePoints(points: number) {
-    return (points / this.pointFactor).toFixed(2);
   }
 
   endGame() {
