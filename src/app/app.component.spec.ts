@@ -89,7 +89,7 @@ describe('AppComponent', () => {
     const pointsTag = fixture.debugElement.query(
       By.css('#points')
     ).nativeElement;
-    expect(pointsTag.textContent).toBe('Your points: 00.0');
+    expect(pointsTag.textContent).toBe('Your points: 0,0');
 
     const opponentsLastDrawnCard = fixture.debugElement.query(
       By.css('#opponents-last-drawn-card')
