@@ -80,7 +80,7 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     const playedCardSub = this.gameSync
       .getNewPlayedCard()
-      .subscribe((gameData) => {
+      .subscribe(async (gameData) => {
         const gameDataDto = parseDTO(gameData);
         if (gameDataDto.success) {
           const {
@@ -103,6 +103,9 @@ export class AppComponent implements OnInit, OnDestroy {
         } else {
           console.error(gameDataDto.error);
         }
+
+        //wait 2 seconds, so that the players can see what cards were played, before the new trick begins
+        await new Promise((resolve) => setTimeout(resolve, 2000));
       });
 
     this.subscriptions.add(playedCardSub);
