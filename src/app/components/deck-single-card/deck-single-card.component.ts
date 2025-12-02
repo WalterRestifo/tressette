@@ -23,8 +23,13 @@ export class DeckSingleCardComponent {
 
   isPlayable = signal(false);
 
-  get backgroundImageUrl(): string {
+  get backgroundImageUrl() {
     return `url('img/${this.suit}${this.numberValue}.png')`;
+  }
+
+  get cursorStyle() {
+    if (this.isPlayable()) return 'pointer';
+    else return 'not-allowed';
   }
 
   private checkIfPlayable() {
