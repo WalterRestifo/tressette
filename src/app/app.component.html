@@ -5,26 +5,29 @@
 } @else {
 <div>
   <div>
-    <div
-      class="relative w-full h-[70dvh] bg-[url('/img/wooden-desk.png')] bg-cover bg-center"
-    >
+    <div class="relative w-full h-[70dvh]">
+      <img
+        ngSrc="/img/wooden-desk.png"
+        width="1920"
+        height="1080"
+        class="absolute top-0 left-0 w-full h-full object-cover"
+        alt="Wooden desk background"
+        priority
+      />
       @if (isOwnTurn) {
       <h2 class="text-white text-center py-8 text-4xl">It's your turn</h2>
       } @else {
       <h2 class="text-white text-center py-8 text-4xl">
         It's the turn of {{ currentPlayerName }}
       </h2>
-      }
-      <div class="flex flex-col items-center" id="opponents-last-drawn-card">
-        <h3
-          class="text-white"
-          [style.visibility]="fromOpponentLastDrawnCard ? 'visible' : 'hidden'"
-        >
-          Opponents last drawn card
-        </h3>
-        <div
-          [style.visibility]="fromOpponentLastDrawnCard ? 'visible' : 'hidden'"
-        >
+      } @if (fromOpponentLastDrawnCard ){
+      <div
+        class="flex flex-col items-center"
+        id="opponents-last-drawn-card"
+        animate.enter="slide-from-top"
+      >
+        <h3 class="text-white">Opponents last drawn card</h3>
+        <div>
           <app-deck-single-card
             [data]="fromOpponentLastDrawnCard"
             [player]="player!"
@@ -33,6 +36,10 @@
           />
         </div>
       </div>
+      } @else {
+      <app-placeholder-card />
+      }
+
       <div class="flex items-center justify-around">
         @if(card1) {
         <div

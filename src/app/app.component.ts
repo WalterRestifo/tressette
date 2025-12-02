@@ -26,6 +26,7 @@ import { parseErrorDTO } from './models/dtos/backendError.dto';
 import { DecimalPipe, registerLocaleData } from '@angular/common';
 import { PlaceholderCardComponent } from './components/placeholder-card/placeholder-card.component';
 import localeDe from '@angular/common/locales/de';
+import { NgOptimizedImage } from '@angular/common';
 
 // comma as decimal separator
 registerLocaleData(localeDe);
@@ -40,6 +41,7 @@ registerLocaleData(localeDe);
     InitialScreenComponent,
     DecimalPipe,
     PlaceholderCardComponent,
+    NgOptimizedImage,
   ],
   // comma as decimal separator
   providers: [{ provide: LOCALE_ID, useValue: 'de-DE' }],
