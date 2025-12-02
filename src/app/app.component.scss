@@ -8,6 +8,11 @@
   animation-name: slide-in-top;
 }
 
+.slide-out {
+  animation-duration: 0.5s;
+  animation-name: slide-out;
+}
+
 @keyframes slide-in-bottom {
   from {
     translate: 0 150vw;
@@ -25,5 +30,15 @@
 
   to {
     translate: 0 0;
+  }
+}
+
+@keyframes slide-out {
+  from {
+    translate: 0 0;
+  }
+
+  to {
+    translate: -150vw 0;
   }
 }

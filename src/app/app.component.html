@@ -35,7 +35,11 @@
       </div>
       <div class="flex items-center justify-around">
         @if(card1) {
-        <div class="flex flex-col items-center" [animate.enter]="animation1">
+        <div
+          class="flex flex-col items-center"
+          [animate.enter]="animation1"
+          animate.leave="slide-out"
+        >
           <h3 class="text-white">Player 1</h3>
 
           <app-deck-single-card
@@ -47,7 +51,11 @@
         } @else {
         <app-placeholder-card />
         } @if(card2){
-        <div class="flex flex-col items-center" [animate.enter]="animation2">
+        <div
+          class="flex flex-col items-center"
+          [animate.enter]="animation2"
+          animate.leave="slide-out"
+        >
           <h3 class="text-white">Player 2</h3>
           <app-deck-single-card
             [data]="card2"
