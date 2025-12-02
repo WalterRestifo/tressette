@@ -23,6 +23,7 @@ import { parseDTO } from './models/dtos/gameData.dto';
 import { PlayerDtoType } from './models/dtos/player.dto';
 import { parseErrorDTO } from './models/dtos/backendError.dto';
 import { DecimalPipe } from '@angular/common';
+import { PlaceholderCardComponent } from './components/placeholder-card/placeholder-card.component';
 
 @Component({
   selector: 'app-root',
@@ -33,6 +34,7 @@ import { DecimalPipe } from '@angular/common';
     EndGameScreenComponent,
     InitialScreenComponent,
     DecimalPipe,
+    PlaceholderCardComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -75,6 +77,16 @@ export class AppComponent implements OnInit, OnDestroy {
 
   get fromOpponentLastDrawnCard() {
     return this.player?.fromOpponentPlayerLastDrawnCard;
+  }
+
+  get animation1() {
+    if (this.player?.name === PlayerEnum.Player1) return 'slide-from-bottom';
+    else return 'slide-from-top';
+  }
+
+  get animation2() {
+    if (this.player?.name === PlayerEnum.Player2) return 'slide-from-bottom';
+    else return 'slide-from-top';
   }
 
   ngOnInit(): void {

@@ -34,36 +34,30 @@
         </div>
       </div>
       <div class="flex items-center justify-around">
-        <div class="flex flex-col items-center">
-          <h3
-            class="text-white"
-            [style.visibility]="card1 ? 'visible' : 'hidden'"
-          >
-            Player 1
-          </h3>
-          <div [style.visibility]="card1 ? 'visible' : 'hidden'">
-            <app-deck-single-card
-              [data]="card1"
-              [player]="player!"
-              [leadingSuit]="leadingSuit"
-            />
-          </div>
+        @if(card1) {
+        <div class="flex flex-col items-center" [animate.enter]="animation1">
+          <h3 class="text-white">Player 1</h3>
+
+          <app-deck-single-card
+            [data]="card1"
+            [player]="player!"
+            [leadingSuit]="leadingSuit"
+          />
         </div>
-        <div class="flex flex-col items-center">
-          <h3
-            class="text-white"
-            [style.visibility]="card2 ? 'visible' : 'hidden'"
-          >
-            Player 2
-          </h3>
-          <div [style.visibility]="card2 ? 'visible' : 'hidden'">
-            <app-deck-single-card
-              [data]="card2"
-              [player]="player!"
-              [leadingSuit]="leadingSuit"
-            />
-          </div>
+        } @else {
+        <app-placeholder-card />
+        } @if(card2){
+        <div class="flex flex-col items-center" [animate.enter]="animation2">
+          <h3 class="text-white">Player 2</h3>
+          <app-deck-single-card
+            [data]="card2"
+            [player]="player!"
+            [leadingSuit]="leadingSuit"
+          />
         </div>
+        } @else {
+        <app-placeholder-card />
+        }
         <div class="w-[9vw] aspect-2/3" #deckRef>
           <div
             class="w-[92%] h-full bg-cover bg-center rounded-sm"

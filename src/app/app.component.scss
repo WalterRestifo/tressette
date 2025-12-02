@@ -1,0 +1,29 @@
+.slide-from-bottom {
+  animation-duration: 0.5s;
+  animation-name: slide-in-bottom;
+}
+
+.slide-from-top {
+  animation-duration: 0.5s;
+  animation-name: slide-in-top;
+}
+
+@keyframes slide-in-bottom {
+  from {
+    translate: 0 150vw;
+  }
+
+  to {
+    translate: 0 0;
+  }
+}
+
+@keyframes slide-in-top {
+  from {
+    translate: 0 -150vw;
+  }
+
+  to {
+    translate: 0 0;
+  }
+}
