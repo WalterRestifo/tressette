@@ -116,7 +116,7 @@ export class AppComponent implements OnInit, OnDestroy {
           console.error(gameDataDto.error);
         }
 
-        //wait 2 seconds, so that the players can see what cards were played, before the new trick begins
+        //wait few seconds, so that the players can see what cards were played, before the new trick begins
         await new Promise((resolve) => setTimeout(resolve, 2000));
       });
 
@@ -158,7 +158,10 @@ export class AppComponent implements OnInit, OnDestroy {
 
     const newTrickUpdateSub = this.gameSync
       .getNewTrickUpdate()
-      .subscribe((gameData) => {
+      .subscribe(async (gameData) => {
+        //wait few seconds, so that the players can see what cards were played, before the new trick begins
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+
         const gameDataDto = parseDTO(gameData);
         if (gameDataDto.success) {
           const {
