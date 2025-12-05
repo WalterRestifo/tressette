@@ -1,0 +1,59 @@
+.rotate-1 {
+  animation-duration: 5s;
+  animation-name: rotate-1;
+}
+
+.rotate-2 {
+  animation-duration: 5s;
+  animation-name: rotate-2;
+}
+
+.rotate-3 {
+  animation-duration: 5s;
+  animation-name: rotate-3;
+}
+
+.rotate-4 {
+  animation-duration: 5s;
+  animation-name: rotate-4;
+}
+
+@keyframes rotate-1 {
+  from {
+    transform: rotate(0);
+  }
+
+  to {
+    transform: rotate(-26deg);
+  }
+}
+
+@keyframes rotate-2 {
+  from {
+    transform: rotate(0);
+  }
+
+  to {
+    transform: rotate(-12deg);
+  }
+}
+
+@keyframes rotate-3 {
+  from {
+    transform: rotate(-10deg);
+  }
+
+  to {
+    transform: rotate(0);
+  }
+}
+
+@keyframes rotate-4 {
+  from {
+    transform: rotate(-25deg);
+  }
+
+  to {
+    transform: rotate(0);
+  }
+}
