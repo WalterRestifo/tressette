@@ -50,7 +50,9 @@ registerLocaleData(localeDe);
 })
 export class AppComponent implements OnInit, OnDestroy {
   @ViewChild('deckRef') deckRef!: ElementRef;
-  @ViewChildren('handCardImageRef') handCardImageRef!: QueryList<ElementRef>;
+  @ViewChildren('handCardImageRef') handCardImageRef!: QueryList<
+    ElementRef<HTMLDivElement>
+  >;
 
   private gameSync = inject(GameSyncService);
   private sessionIdentitySvc = inject(SessionIdentityService);
@@ -212,6 +214,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
       // animate the dealing of the cards
       const deckPos = this.deckRef.nativeElement.getBoundingClientRect();
+
       this.handCardImageRef.forEach((ref, index) => {
         const position = ref.nativeElement.getBoundingClientRect();
         const deltaY = deckPos.top - position.top;
