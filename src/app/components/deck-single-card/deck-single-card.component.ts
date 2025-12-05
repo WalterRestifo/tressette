@@ -35,6 +35,39 @@ export class DeckSingleCardComponent {
     else return 'not-allowed';
   }
 
+  get numberValue() {
+    return this.data()?.numberValue;
+  }
+
+  get suit() {
+    return this.data()?.suit;
+  }
+
+  constructor() {
+    effect(() => {
+      this.isPlayable.set(this.checkIfPlayable());
+    });
+  }
+
+  openDialog() {
+    if (!this.isPlayable()) return;
+
+    const dialogRef = this.dialog.open(SingleCardDialogComponent, {
+      // This data is part of the dialog API of angular material
+      data: {
+        // This data is needed because type DeckSingleCard needs data (like prop) TODO: rename it to prop or something similar
+        data: {
+          numberValue: this.numberValue,
+          suit: this.suit,
+          gameValue: this.data()?.gameValue,
+          pointValue: this.data()?.pointValue,
+          id: this.data()?.id,
+        },
+        player: this.player(),
+      },
+    });
+  }
+
   private checkIfPlayable() {
     const ownName = this.player().name;
     const hand = this.player().hand;
@@ -58,38 +91,5 @@ export class DeckSingleCardComponent {
     } else {
       return false;
     }
-  }
-
-  constructor() {
-    effect(() => {
-      this.isPlayable.set(this.checkIfPlayable());
-    });
-  }
-
-  get numberValue() {
-    return this.data()?.numberValue;
-  }
-
-  get suit() {
-    return this.data()?.suit;
-  }
-
-  openDialog() {
-    if (!this.isPlayable()) return;
-
-    const dialogRef = this.dialog.open(SingleCardDialogComponent, {
-      // This data is part of the dialog API of angular material
-      data: {
-        // This data is needed because type DeckSingleCard needs data (like prop) TODO: rename it to prop or something similar
-        data: {
-          numberValue: this.numberValue,
-          suit: this.suit,
-          gameValue: this.data()?.gameValue,
-          pointValue: this.data()?.pointValue,
-          id: this.data()?.id,
-        },
-        player: this.player(),
-      },
-    });
   }
 }
