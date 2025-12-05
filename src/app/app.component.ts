@@ -24,7 +24,6 @@ import { parseDTO } from './models/dtos/gameData.dto';
 import { PlayerDtoType } from './models/dtos/player.dto';
 import { parseErrorDTO } from './models/dtos/backendError.dto';
 import { DecimalPipe, registerLocaleData } from '@angular/common';
-import { PlaceholderCardComponent } from './components/placeholder-card/placeholder-card.component';
 import localeDe from '@angular/common/locales/de';
 import { NgOptimizedImage } from '@angular/common';
 
@@ -40,7 +39,6 @@ registerLocaleData(localeDe);
     EndGameScreenComponent,
     InitialScreenComponent,
     DecimalPipe,
-    PlaceholderCardComponent,
     NgOptimizedImage,
   ],
   // comma as decimal separator

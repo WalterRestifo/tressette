@@ -10,6 +10,9 @@ import { PlayerDtoType } from '../../models/dtos/player.dto';
   selector: 'deck-single-card',
   imports: [MatCardModule],
   templateUrl: './deck-single-card.component.html',
+  styles: [
+    ':host { display: inline-block; padding: 0; margin: 0; line-height: 0;}',
+  ],
 })
 export class DeckSingleCardComponent {
   data = input<DeckSingleCardDtoType>();
