@@ -29,14 +29,12 @@
           animate.enter="slide-from-top"
         >
           <h3 class="text-white">Opponents last drawn card</h3>
-          <div>
-            <deck-single-card
-              [data]="fromOpponentLastDrawnCard"
-              [player]="player!"
-              [leadingSuit]="leadingSuit"
-              [isDisabled]="true"
-            />
-          </div>
+          <card-with-backface
+            [card]="fromOpponentLastDrawnCard"
+            [player]="player!"
+            [leadingSuit]="leadingSuit"
+            [isOpponentLastDrawnCard]="true"
+          />
         </div>
         }
       </div>
@@ -52,7 +50,7 @@
             <h3 class="text-white">Player 1</h3>
             <deck-single-card
               [data]="card1"
-              [player]="player!"
+              [player]="player()!"
               [leadingSuit]="leadingSuit"
             />
           </div>
@@ -68,7 +66,7 @@
             <h3 class="text-white">Player 2</h3>
             <deck-single-card
               [data]="card2"
-              [player]="player!"
+              [player]="player()!"
               [leadingSuit]="leadingSuit"
             />
           </div>
@@ -90,7 +88,7 @@
     <div>
       <div class="flex justify-between my-4 items-center">
         <span class="text-white mx-4" id="points"
-          >Your points: {{ player!.points / 3 | number : "1.1-1" }}</span
+          >Your points: {{ player()!.points / 3 | number : "1.1-1" }}</span
         >
         <button
           matButton="elevated"
@@ -107,7 +105,7 @@
         <li [style.z-index]="20 - index">
           <card-with-backface
             [card]="card"
-            [player]="player!"
+            [player]="player"
             [leadingSuit]="leadingSuit"
             [currentPlayerName]="currentPlayerName"
             #cardWithBackfaceRef

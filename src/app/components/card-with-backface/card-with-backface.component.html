@@ -8,9 +8,10 @@
     >
       <deck-single-card
         [data]="card()"
-        [player]="player()"
+        [player]="player()()"
         [leadingSuit]="leadingSuit()"
         [currentPlayerName]="currentPlayerName()"
+        [isDisabled]="isOpponentLastDrawnCard()"
       />
     </div>
 

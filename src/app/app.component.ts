@@ -7,6 +7,7 @@ import {
   OnDestroy,
   OnInit,
   QueryList,
+  signal,
   ViewChild,
   ViewChildren,
 } from '@angular/core';
@@ -27,6 +28,7 @@ import { DecimalPipe, registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de';
 import { NgOptimizedImage } from '@angular/common';
 import { CardWithBackfaceComponent } from './components/card-with-backface/card-with-backface.component';
+import { mockPlayer } from './models/mocks/mocks';
 
 // comma as decimal separator
 registerLocaleData(localeDe);
@@ -58,7 +60,7 @@ export class AppComponent implements OnInit, OnDestroy {
   isGameOver = false;
   winner: PlayerDtoType | undefined;
 
-  player: PlayerDtoType | undefined;
+  player = signal<PlayerDtoType>(mockPlayer);
   currentPlayerName = PlayerEnum.Player1;
   private subscriptions = new Subscription();
   pointFactor = 3;
@@ -71,7 +73,7 @@ export class AppComponent implements OnInit, OnDestroy {
   areInitialCardDealed = false;
 
   get hand() {
-    return this.player?.hand;
+    return this.player()?.hand;
   }
 
   get card1() {
@@ -82,11 +84,11 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   get isOwnTurn() {
-    return this.player?.isOwnTurn;
+    return this.player()?.isOwnTurn;
   }
 
   get fromOpponentLastDrawnCard() {
-    return this.player?.fromOpponentPlayerLastDrawnCard;
+    return this.player()?.fromOpponentPlayerLastDrawnCard;
   }
 
   get animation1() {
@@ -132,7 +134,7 @@ export class AppComponent implements OnInit, OnDestroy {
             case 'initGame': {
               const { player, gameEnded, currentPlayerName, sessionIdentity } =
                 gameDataDto.data;
-              this.player = player;
+              this.player.set(player);
               this.isGameOver = gameEnded;
               this.currentPlayerName = currentPlayerName;
               this.isGameInitialised = true;
@@ -187,7 +189,7 @@ export class AppComponent implements OnInit, OnDestroy {
               this.inThisTrickPlayedCards = inThisTrickPlayedCards;
               this.leadingSuit = leadingSuit;
               this.winner = winner;
-              this.player = player;
+              this.player.set(player);
 
               break;
             }
