@@ -5,7 +5,7 @@ import { MatButton } from '@angular/material/button';
 import { PlayerDtoType } from '../../models/dtos/player.dto';
 
 @Component({
-  selector: 'app-end-game-screen',
+  selector: 'end-game-screen',
   imports: [MatButton],
   templateUrl: './end-game-screen.component.html',
   styleUrl: './end-game-screen.component.scss',

@@ -10,7 +10,7 @@ import { GameSyncService } from '../../services/game-sync/game-sync.service';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  selector: 'app-initial-screen',
+  selector: 'initial-screen',
   imports: [
     ReactiveFormsModule,
     MatRadioModule,

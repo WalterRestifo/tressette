@@ -32,7 +32,7 @@ import { NgOptimizedImage } from '@angular/common';
 registerLocaleData(localeDe);
 
 @Component({
-  selector: 'app-root',
+  selector: 'root',
   imports: [
     RouterOutlet,
     DeckSingleCardComponent,

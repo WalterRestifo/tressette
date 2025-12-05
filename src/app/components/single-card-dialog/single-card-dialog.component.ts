@@ -18,7 +18,7 @@ type DialogData = {
 };
 
 @Component({
-  selector: 'app-single-card-dialog',
+  selector: 'single-card-dialog',
   imports: [MatDialogContent, MatDialogActions, MatButtonModule],
   templateUrl: './single-card-dialog.component.html',
 })

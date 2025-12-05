@@ -1,11 +1,11 @@
 @if(isGameOver){
-<app-end-game-screen [winner]="winner" />
+<end-game-screen [winner]="winner" />
 } @else if (!isGameInitialised) {
-<app-initial-screen />
+<initial-screen />
 } @else {
 <div>
   <div>
-    <div class="relative w-full h-[70dvh]">
+    <div class="relative w-full h-[58dvh] md:h-[70dvh]">
       <img
         ngSrc="/img/wooden-desk.png"
         width="1920"
@@ -28,7 +28,7 @@
       >
         <h3 class="text-white">Opponents last drawn card</h3>
         <div>
-          <app-deck-single-card
+          <deck-single-card
             [data]="fromOpponentLastDrawnCard"
             [player]="player!"
             [leadingSuit]="leadingSuit"
@@ -37,7 +37,7 @@
         </div>
       </div>
       } @else {
-      <app-placeholder-card />
+      <placeholder-card />
       }
 
       <div class="flex items-center justify-around">
@@ -49,14 +49,14 @@
         >
           <h3 class="text-white">Player 1</h3>
 
-          <app-deck-single-card
+          <deck-single-card
             [data]="card1"
             [player]="player!"
             [leadingSuit]="leadingSuit"
           />
         </div>
         } @else {
-        <app-placeholder-card />
+        <placeholder-card />
         } @if(card2){
         <div
           class="flex flex-col items-center"
@@ -64,16 +64,16 @@
           animate.leave="slide-out"
         >
           <h3 class="text-white">Player 2</h3>
-          <app-deck-single-card
+          <deck-single-card
             [data]="card2"
             [player]="player!"
             [leadingSuit]="leadingSuit"
           />
         </div>
         } @else {
-        <app-placeholder-card />
+        <placeholder-card />
         }
-        <div class="w-[9vw] aspect-2/3" #deckRef>
+        <div class="w-[17vw] md:w-[9vw] aspect-2/3" #deckRef>
           <div
             class="w-[92%] h-full bg-cover bg-center rounded-sm"
             [style.backgroundImage]="'url(img/card_back.png)'"
@@ -97,7 +97,7 @@
       </div>
       <ul class="list-none flex flex-wrap justify-around">
         @for(card of hand; track card.id){
-        <li class="mx-1 perspective-normal w-[9vw] aspect-2/3">
+        <li class="mx-1 my-1 perspective-normal w-[17vw] md:w-[9vw] aspect-2/3">
           <div
             class="w-full h-full relative [transform-style:preserve-3d] [transform:rotateY(180deg)]"
             #handCardImageRef
@@ -105,7 +105,7 @@
             <div
               class="absolute w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)]"
             >
-              <app-deck-single-card
+              <deck-single-card
                 [data]="card"
                 [player]="player!"
                 [leadingSuit]="leadingSuit"

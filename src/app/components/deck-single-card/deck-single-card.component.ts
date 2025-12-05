@@ -7,7 +7,7 @@ import { DeckSingleCardDtoType } from '../../models/dtos/deckSingleCard.dto';
 import { PlayerDtoType } from '../../models/dtos/player.dto';
 
 @Component({
-  selector: 'app-deck-single-card',
+  selector: 'deck-single-card',
   imports: [MatCardModule],
   templateUrl: './deck-single-card.component.html',
 })
