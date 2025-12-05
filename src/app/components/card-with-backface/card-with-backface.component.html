@@ -1,0 +1,22 @@
+<div class="mx-1 my-1 perspective-normal w-[17vw] md:w-[9vw] aspect-2/3">
+  <div
+    class="w-full h-full relative [transform-style:preserve-3d] [transform:rotateY(180deg)]"
+    #handCardImageRef
+  >
+    <div
+      class="absolute w-fit h-full [backface-visibility:hidden] [transform:rotateY(180deg)]"
+    >
+      <deck-single-card
+        [data]="card()"
+        [player]="player()"
+        [leadingSuit]="leadingSuit()"
+        [currentPlayerName]="currentPlayerName()"
+      />
+    </div>
+
+    <div
+      class="absolute w-[95%] h-full [backface-visibility:hidden] bg-cover bg-center rounded-sm"
+      [style.backgroundImage]="'url(img/card_back.png)'"
+    ></div>
+  </div>
+</div>

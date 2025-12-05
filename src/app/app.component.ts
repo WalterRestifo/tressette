@@ -26,6 +26,7 @@ import { parseErrorDTO } from './models/dtos/backendError.dto';
 import { DecimalPipe, registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de';
 import { NgOptimizedImage } from '@angular/common';
+import { CardWithBackfaceComponent } from './components/card-with-backface/card-with-backface.component';
 
 // comma as decimal separator
 registerLocaleData(localeDe);
@@ -40,6 +41,7 @@ registerLocaleData(localeDe);
     InitialScreenComponent,
     DecimalPipe,
     NgOptimizedImage,
+    CardWithBackfaceComponent,
   ],
   // comma as decimal separator
   providers: [{ provide: LOCALE_ID, useValue: 'de-DE' }],
@@ -48,9 +50,8 @@ registerLocaleData(localeDe);
 })
 export class AppComponent implements OnInit, OnDestroy {
   @ViewChild('deckRef') deckRef!: ElementRef;
-  @ViewChildren('handCardImageRef') handCardImageRef!: QueryList<
-    ElementRef<HTMLDivElement>
-  >;
+  @ViewChildren('cardWithBackfaceRef')
+  cardWithBackfaceRef!: QueryList<CardWithBackfaceComponent>;
 
   private gameSync = inject(GameSyncService);
   private sessionIdentitySvc = inject(SessionIdentityService);
@@ -213,12 +214,12 @@ export class AppComponent implements OnInit, OnDestroy {
       // animate the dealing of the cards
       const deckPos = this.deckRef.nativeElement.getBoundingClientRect();
 
-      this.handCardImageRef.forEach((ref, index) => {
-        const position = ref.nativeElement.getBoundingClientRect();
+      this.cardWithBackfaceRef.forEach((ref, index) => {
+        const position = ref.element.getBoundingClientRect();
         const deltaY = deckPos.top - position.top;
         const deltaX = deckPos.left - position.left;
 
-        ref.nativeElement.animate(
+        ref.element.animate(
           [
             {
               transformOrigin: 'top left',

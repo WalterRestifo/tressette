@@ -104,30 +104,14 @@
       <ul class="list-none flex flex-wrap justify-around">
         @for(card of hand; track card.id; let index = $index){
         <!-- The z index of (20 - index) is needed to let the first dealed card being on top of the other cards in the dealing animation -->
-        <li
-          class="mx-1 my-1 perspective-normal w-[17vw] md:w-[9vw] aspect-2/3"
-          [style.z-index]="20 - index"
-        >
-          <div
-            class="w-full h-full relative [transform-style:preserve-3d] [transform:rotateY(180deg)]"
-            #handCardImageRef
-          >
-            <div
-              class="absolute w-fit h-full [backface-visibility:hidden] [transform:rotateY(180deg)]"
-            >
-              <deck-single-card
-                [data]="card"
-                [player]="player!"
-                [leadingSuit]="leadingSuit"
-                [currentPlayerName]="currentPlayerName"
-              />
-            </div>
-
-            <div
-              class="absolute w-[95%] h-full [backface-visibility:hidden] bg-cover bg-center rounded-sm"
-              [style.backgroundImage]="'url(img/card_back.png)'"
-            ></div>
-          </div>
+        <li [style.z-index]="20 - index">
+          <card-with-backface
+            [card]="card"
+            [player]="player!"
+            [leadingSuit]="leadingSuit"
+            [currentPlayerName]="currentPlayerName"
+            #cardWithBackfaceRef
+          />
         </li>
         }
       </ul>
