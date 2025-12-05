@@ -7,9 +7,10 @@
 ## 📦 Tech Stack
 
 - **Frontend:** Angular
+- **Styling** Tailwind
+- **Validation** Zod
 - **Backend:** NestJS (Node.js)
-- **WebSocket-based multiplayer**
-- **Real-time gameplay**
+- **WebSocket** SocketIO for NestJS
 
 ---
 
@@ -93,12 +94,16 @@ Only specific cards are worth points:
 
 Walter Restifo
 
+### Play the game online
+
+visit: https://tressette-frontend-863401855094.europe-west1.run.app
+
 ### 🔧 Installation
 
 1. **Clone the repo**:
 
 ````bash
-git clone https://github.com/yourusername/tressette-online.git
+git clone git@github.com:WalterRestifo/tressette.git
 cd tressette-online
 
 
