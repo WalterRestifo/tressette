@@ -1,7 +1,9 @@
-<h2>Game Over</h2>
+<h2>{{ "endScreen.gameOver" | translate }}</h2>
 @if(winner()?.name){
-<p>{{ winner()?.name }} won!</p>
+<p>{{ winner()?.name }} {{ "endScreen.win" | translate }}!</p>
 } @else {
-<p>There is no winner.</p>
+<p>{{ "endScreen.noWinner" | translate }}</p>
 }
-<button matButton="elevated" (click)="startNewGame()">play again</button>
+<button matButton="elevated" (click)="startNewGame()">
+  {{ "endScreen.playAgain" | translate }}
+</button>

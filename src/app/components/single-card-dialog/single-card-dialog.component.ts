@@ -4,13 +4,13 @@ import {
   MatDialogContent,
   MatDialogActions,
   MatDialogRef,
-  MatDialogClose,
 } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { GameSyncService } from '../../services/game-sync/game-sync.service';
 import { SessionIdentityService } from '../../services/session-identity/session-identity.service';
 import { DeckSingleCardDtoType } from '../../models/dtos/deckSingleCard.dto';
 import { PlayerDtoType } from '../../models/dtos/player.dto';
+import { TranslatePipe } from '@ngx-translate/core';
 
 type DialogData = {
   data: DeckSingleCardDtoType;
@@ -19,7 +19,7 @@ type DialogData = {
 
 @Component({
   selector: 'single-card-dialog',
-  imports: [MatDialogContent, MatDialogActions, MatButtonModule],
+  imports: [MatDialogContent, MatDialogActions, MatButtonModule, TranslatePipe],
   templateUrl: './single-card-dialog.component.html',
 })
 export class SingleCardDialogComponent {

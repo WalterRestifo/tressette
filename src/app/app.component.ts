@@ -29,6 +29,7 @@ import localeDe from '@angular/common/locales/de';
 import { NgOptimizedImage } from '@angular/common';
 import { CardWithBackfaceComponent } from './components/card-with-backface/card-with-backface.component';
 import { mockPlayer } from './models/mocks/mocks';
+import { TranslatePipe } from '@ngx-translate/core';
 
 // comma as decimal separator
 registerLocaleData(localeDe);
@@ -44,6 +45,7 @@ registerLocaleData(localeDe);
     DecimalPipe,
     NgOptimizedImage,
     CardWithBackfaceComponent,
+    TranslatePipe,
   ],
   // comma as decimal separator
   providers: [{ provide: LOCALE_ID, useValue: 'de-DE' }],

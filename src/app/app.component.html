@@ -15,10 +15,12 @@
         priority
       />
       @if (isOwnTurn) {
-      <h2 class="text-white text-center py-8 text-4xl">It's your turn</h2>
+      <h2 class="text-white text-center py-8 text-4xl">
+        {{ "app.ownTurn" | translate }}
+      </h2>
       } @else {
       <h2 class="text-white text-center py-8 text-4xl">
-        It's the turn of {{ currentPlayerName }}
+        {{ "app.otherTurn" | translate }}{{ currentPlayerName }}
       </h2>
       }
       <div class="w-full h-[20vw] max-h-[200px] mb-8">
@@ -28,7 +30,7 @@
           id="opponents-last-drawn-card"
           animate.enter="slide-from-top"
         >
-          <h3 class="text-white">Opponents last drawn card</h3>
+          <h3 class="text-white">{{ "app.opponentsCard" | translate }}</h3>
           <card-with-backface
             [card]="fromOpponentLastDrawnCard"
             [player]="player!"
@@ -47,7 +49,7 @@
             [animate.enter]="animation1"
             animate.leave="slide-out"
           >
-            <h3 class="text-white">Player 1</h3>
+            <h3 class="text-white">{{ "app.player" | translate }} 1</h3>
             <deck-single-card
               [data]="card1"
               [player]="player()!"
@@ -63,7 +65,7 @@
             [animate.enter]="animation2"
             animate.leave="slide-out"
           >
-            <h3 class="text-white">Player 2</h3>
+            <h3 class="text-white">{{ "app.player" | translate }} 2</h3>
             <deck-single-card
               [data]="card2"
               [player]="player()!"
@@ -74,7 +76,7 @@
         </div>
         <div class="w-[18vw] md:w-[10vw] max-w-[140px] aspect-2/3">
           <div class="flex flex-col items-center">
-            <h3 class="text-white">Deck</h3>
+            <h3 class="text-white">{{ "app.deck" | translate }}</h3>
             <div class="w-[17vw] md:w-[9vw] max-w-[135px] aspect-2/3" #deckRef>
               <div
                 class="w-[92%] h-full bg-cover bg-center rounded-sm"
@@ -88,7 +90,8 @@
     <div>
       <div class="flex justify-between my-4 items-center">
         <span class="text-white mx-4" id="points"
-          >Your points: {{ player()!.points / 3 | number : "1.1-1" }}</span
+          >{{ "app.points" | translate }}
+          {{ player()!.points / 3 | number : "1.1-1" }}</span
         >
         <button
           matButton="elevated"
@@ -96,7 +99,7 @@
           id="quit-btn"
           (click)="endGame()"
         >
-          quit game
+          {{ "app.quitGame" | translate }}
         </button>
       </div>
       <ul class="list-none flex flex-wrap justify-around">

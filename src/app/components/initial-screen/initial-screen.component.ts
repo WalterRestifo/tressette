@@ -8,6 +8,7 @@ import { PlayerEnum, SessionTypeEnum } from '../../models/enums';
 import { SessionDto } from '../../models/dtos/session.dto';
 import { GameSyncService } from '../../services/game-sync/game-sync.service';
 import { MatButtonModule } from '@angular/material/button';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'initial-screen',
@@ -17,6 +18,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    TranslatePipe,
   ],
   templateUrl: './initial-screen.component.html',
   styleUrl: './initial-screen.component.scss',

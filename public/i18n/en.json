@@ -1,0 +1,27 @@
+{
+  "initialScreen": {
+    "title": "Tressette Online",
+    "newGame": "New Game",
+    "joinGame": "Join Game",
+    "enterSession": "Enter the session id",
+    "writeSession": "Write a session id"
+  },
+  "app": {
+    "ownTurn": "It's your turn",
+    "otherTurn": "It's the turn of ",
+    "opponentsCard": "Opponents last drawn card",
+    "player": "Player",
+    "deck": "Deck",
+    "points": "Your points:",
+    "quitGame": "Quit game"
+  },
+  "singleCardDialog": {
+    "playCard": "Play card"
+  },
+  "endScreen": {
+    "gameOver": "Game Over",
+    "win": "won",
+    "noWinner": "There is no winner.",
+    "playAgain": "Play again"
+  }
+}
