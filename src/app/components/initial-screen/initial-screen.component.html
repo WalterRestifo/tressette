@@ -8,27 +8,38 @@
   <div
     class="w-[80vw] max-w-[500px] h-[80vh] m-auto mt-0 bg-black p-10 rounded-3xl"
   >
-    <div class="relative w-full h-1/2">
+    <div class="relative w-full h-1/3">
       <div
         style="background-image: url(img/CLUBS1.png)"
-        class="w-[30vw] md:w-[9vw] max-w-[135px] aspect-2/3 bg-cover bg-center rounded-sm -rotate-25 origin-bottom-left z-5 absolute outline outline-black top-[15%] left-[22%] md:left-[30%]"
+        class="w-[20vw] md:w-[9vw] max-w-[135px] aspect-2/3 bg-cover bg-center rounded-sm -rotate-25 origin-bottom-left z-5 absolute outline outline-black top-[5%] left-[30%] md:left-[30%]"
         animate.enter="rotate-1"
       ></div>
       <div
         style="background-image: url(img/COINS1.png)"
-        class="w-[30vw] md:w-[9vw] max-w-[135px] aspect-2/3 bg-cover bg-center rounded-sm -rotate-10 origin-bottom-left z-4 absolute outline outline-black top-[10%] left-[24%] md:left-[35%]"
+        class="w-[20vw] md:w-[9vw] max-w-[135px] aspect-2/3 bg-cover bg-center rounded-sm -rotate-10 origin-bottom-left z-4 absolute outline outline-black top-[0%] left-[32%] md:left-[35%]"
         animate.enter="rotate-2"
       ></div>
       <div
         style="background-image: url(img/CUPS1.png)"
-        class="w-[30vw] md:w-[9vw] max-w-[135px] aspect-2/3 bg-cover bg-center rounded-sm rotate-10 origin-bottom-left z-3 absolute outline outline-black top-[5%] left-[26%] md:left-[40%]"
+        class="w-[20vw] md:w-[9vw] max-w-[135px] aspect-2/3 bg-cover bg-center rounded-sm rotate-10 origin-bottom-left z-3 absolute outline outline-black top-[-5%] left-[34%] md:left-[40%]"
         animate.enter="rotate-3"
       ></div>
       <div
         style="background-image: url(img/SWORDS1.png)"
-        class="w-[30vw] md:w-[9vw] max-w-[135px] aspect-2/3 bg-cover bg-center rounded-sm origin-bottom-left rotate-25 z-2 absolute outline outline-black top-[0%] left-[28%] md:left-[45%]"
+        class="w-[20vw] md:w-[9vw] max-w-[135px] aspect-2/3 bg-cover bg-center rounded-sm origin-bottom-left rotate-25 z-2 absolute outline outline-black top-[-10%] left-[37%] md:left-[45%]"
         animate.enter="rotate-4"
       ></div>
+    </div>
+    <div class="w-full h-fit flex justify-around">
+      <mat-button-toggle-group
+        name="language"
+        aria-label="Language"
+        (change)="onLanguageChange($event)"
+      >
+        <mat-button-toggle value="en">English</mat-button-toggle>
+        <mat-button-toggle value="it">Italiano</mat-button-toggle>
+        <mat-button-toggle value="de">Deutsch</mat-button-toggle>
+      </mat-button-toggle-group>
     </div>
     <form [formGroup]="form" class="flex flex-col">
       <mat-radio-group [formControl]="sessionControl" class="py-6">

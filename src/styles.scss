@@ -45,3 +45,13 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+// Override Angular Material components styles
+// Customize the entire app. Change :root to your selector if you want to scope the styles.
+:root {
+  @include mat.button-toggle-overrides(
+    (
+      height: 50px,
+    )
+  );
+}

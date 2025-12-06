@@ -1,3 +1,13 @@
+::ng-deep
+  .mat-button-toggle-checked
+  .mat-button-toggle-button:has(.mat-button-toggle-checkbox-wrapper) {
+  padding-left: 0 !important;
+}
+
+::ng-deep .mat-pseudo-checkbox {
+  display: none !important;
+}
+
 .rotate-1 {
   animation-duration: 5s;
   animation-name: rotate-1;

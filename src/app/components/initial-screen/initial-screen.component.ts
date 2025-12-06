@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -8,7 +8,11 @@ import { PlayerEnum, SessionTypeEnum } from '../../models/enums';
 import { SessionDto } from '../../models/dtos/session.dto';
 import { GameSyncService } from '../../services/game-sync/game-sync.service';
 import { MatButtonModule } from '@angular/material/button';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import {
+  MatButtonToggleChange,
+  MatButtonToggleModule,
+} from '@angular/material/button-toggle';
 
 @Component({
   selector: 'initial-screen',
@@ -18,6 +22,7 @@ import { TranslatePipe } from '@ngx-translate/core';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    MatButtonToggleModule,
     TranslatePipe,
   ],
   templateUrl: './initial-screen.component.html',
@@ -25,6 +30,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 })
 export class InitialScreenComponent {
   private syncService = inject(GameSyncService);
+  private translate = inject(TranslateService);
   readonly sessionType = SessionTypeEnum;
   readonly sessionControl = new FormControl(SessionTypeEnum.New, {
     nonNullable: true,
@@ -38,6 +44,7 @@ export class InitialScreenComponent {
       ? PlayerEnum.Player1
       : PlayerEnum.Player2;
   });
+
   form = new FormGroup({
     session: this.sessionControl,
     sessionId: this.sessionIdControl,
@@ -51,5 +58,10 @@ export class InitialScreenComponent {
     };
 
     this.syncService.sendSessionData(sessionDto);
+  }
+
+  onLanguageChange(event: MatButtonToggleChange) {
+    console.log('event: ', event);
+    this.translate.use(event.value);
   }
 }

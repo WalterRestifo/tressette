@@ -1,0 +1,27 @@
+{
+  "initialScreen": {
+    "title": "Tressette Online",
+    "newGame": "Crea una nuova partita",
+    "joinGame": "Partecipa ad una partita",
+    "enterSession": "Codice della partita",
+    "writeSession": "Codice per la partita"
+  },
+  "app": {
+    "ownTurn": "E' il tuo turno",
+    "otherTurn": "E' il turno di ",
+    "opponentsCard": "Carta pescata dall' avversario",
+    "player": "Giocatore",
+    "deck": "Mazzo",
+    "points": "I tuoi punti",
+    "quitGame": "Abbandona la partita"
+  },
+  "singleCardDialog": {
+    "playCard": "Gioca la carta"
+  },
+  "endScreen": {
+    "gameOver": "Partita finita",
+    "win": "ha vinto",
+    "noWinner": "Pareggio",
+    "playAgain": "Rivincita"
+  }
+}

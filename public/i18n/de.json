@@ -1,0 +1,27 @@
+{
+  "initialScreen": {
+    "title": "Tressette Online",
+    "newGame": "Neues Spiel",
+    "joinGame": "Spiel betreten",
+    "enterSession": "Spielname eingeben",
+    "writeSession": "Spielname erstellen"
+  },
+  "app": {
+    "ownTurn": "Du bist dran",
+    "otherTurn": "Am Zug ist ",
+    "opponentsCard": "Vom Gegner gezogene Karte",
+    "player": "Spieler",
+    "deck": "Kartendeck",
+    "points": "Deine Punkte:",
+    "quitGame": "Spiel verlassen"
+  },
+  "singleCardDialog": {
+    "playCard": "Karte spielen"
+  },
+  "endScreen": {
+    "gameOver": "Spielende",
+    "win": "hat gewonnen",
+    "noWinner": "Kein Gewinner.",
+    "playAgain": "Nochmal spielen"
+  }
+}
