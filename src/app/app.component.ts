@@ -94,12 +94,12 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   get animation1() {
-    if (this.player?.name === PlayerEnum.Player1) return 'slide-from-bottom';
+    if (this.player()?.name === PlayerEnum.Player1) return 'slide-from-bottom';
     else return 'slide-from-top';
   }
 
   get animation2() {
-    if (this.player?.name === PlayerEnum.Player2) return 'slide-from-bottom';
+    if (this.player()?.name === PlayerEnum.Player2) return 'slide-from-bottom';
     else return 'slide-from-top';
   }
 
@@ -166,9 +166,12 @@ export class AppComponent implements OnInit, OnDestroy {
               this.inThisTrickPlayedCards = inThisTrickPlayedCards;
               this.leadingSuit = leadingSuit;
 
-              if (player.name === this.player?.name) {
+              if (player.name === this.player()?.name) {
                 // update the hand of the own player
-                this.player = event.data.player;
+                this.player.set(event.data.player);
+              } else {
+                // update turn
+                this.player().isOwnTurn = true;
               }
 
               //wait few seconds, so that the players can see what cards were played, before the new trick begins
