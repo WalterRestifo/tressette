@@ -166,8 +166,6 @@ export class AppComponent implements OnInit, OnDestroy {
                 player,
               } = gameDataDto.data;
 
-              console.log('data: ', gameDataDto.data);
-
               this.isGameOver = gameEnded;
               this.currentPlayerName = currentPlayerName;
               this.inThisTrickPlayedCards = inThisTrickPlayedCards;

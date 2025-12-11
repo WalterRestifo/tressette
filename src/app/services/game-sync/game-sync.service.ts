@@ -21,7 +21,6 @@ export class GameSyncService {
     sessionIdentity: SessionIdentityDtoType
   ) {
     const payload = { card, player, sessionIdentity };
-    console.log('payload: ', payload);
     this.socket.emit('playedCard', payload);
   }
 
