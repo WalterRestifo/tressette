@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
-import { Player } from '../../models/player.model';
 import { SessionDto } from '../../models/dtos/session.dto';
 import { SessionIdentityDtoType } from '../../models/dtos/sessionIdentity.dto';
 import type { DeckSingleCardDtoType } from '../../models/dtos/deckSingleCard.dto';
+import { PlayerDtoType } from '../../models/dtos/player.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -17,10 +17,11 @@ export class GameSyncService {
 
   playCard(
     card: DeckSingleCardDtoType,
-    player: Player,
+    player: PlayerDtoType,
     sessionIdentity: SessionIdentityDtoType
   ) {
     const payload = { card, player, sessionIdentity };
+    console.log('payload: ', payload);
     this.socket.emit('playedCard', payload);
   }
 

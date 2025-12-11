@@ -2,9 +2,10 @@ import { Component, effect, inject, input, signal } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { SingleCardDialogComponent } from '../single-card-dialog/single-card-dialog.component';
-import { CardSuitEnum, PlayerEnum } from '../../models/enums';
+import { CardSuitEnum } from '../../models/enums';
 import { DeckSingleCardDtoType } from '../../models/dtos/deckSingleCard.dto';
 import { PlayerDtoType } from '../../models/dtos/player.dto';
+import { PlayerNameDtoType } from '../../models/dtos/playerName.dto';
 
 @Component({
   selector: 'deck-single-card',
@@ -22,7 +23,7 @@ export class DeckSingleCardComponent {
   isDisabled = input<boolean>();
   player = input.required<PlayerDtoType>();
   leadingSuit = input.required<CardSuitEnum | undefined>();
-  currentPlayerName = input<PlayerEnum>();
+  currentPlayerName = input<PlayerNameDtoType>();
 
   isPlayable = signal(false);
 
@@ -69,12 +70,12 @@ export class DeckSingleCardComponent {
   }
 
   private checkIfPlayable() {
-    const ownName = this.player().name;
+    const ownName = this.player().name.enumName;
     const hand = this.player().hand;
     const leadingSuit = this.leadingSuit();
     const suit = this.data()?.suit;
 
-    if (this.currentPlayerName() !== ownName) return false;
+    if (this.currentPlayerName()?.enumName !== ownName) return false;
 
     // Sometimes a card should only be shown, like for the opponents last drawn card.
     if (this.isDisabled()) return false;

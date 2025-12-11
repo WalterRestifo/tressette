@@ -63,7 +63,10 @@ export class AppComponent implements OnInit, OnDestroy {
   winner: PlayerDtoType | undefined;
 
   player = signal<PlayerDtoType>(mockPlayer);
-  currentPlayerName = PlayerEnum.Player1;
+  currentPlayerName = {
+    enumName: PlayerEnum.Player2,
+    userName: 'placeholderPlayer',
+  };
   private subscriptions = new Subscription();
   pointFactor = 3;
   isGameInitialised = false;
@@ -94,12 +97,14 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   get animation1() {
-    if (this.player()?.name === PlayerEnum.Player1) return 'slide-from-bottom';
+    if (this.player()?.name.enumName === PlayerEnum.Player1)
+      return 'slide-from-bottom';
     else return 'slide-from-top';
   }
 
   get animation2() {
-    if (this.player()?.name === PlayerEnum.Player2) return 'slide-from-bottom';
+    if (this.player()?.name.enumName === PlayerEnum.Player2)
+      return 'slide-from-bottom';
     else return 'slide-from-top';
   }
 
@@ -161,12 +166,14 @@ export class AppComponent implements OnInit, OnDestroy {
                 player,
               } = gameDataDto.data;
 
+              console.log('data: ', gameDataDto.data);
+
               this.isGameOver = gameEnded;
               this.currentPlayerName = currentPlayerName;
               this.inThisTrickPlayedCards = inThisTrickPlayedCards;
               this.leadingSuit = leadingSuit;
 
-              if (player.name === this.player()?.name) {
+              if (player.name.enumName === this.player()?.name.enumName) {
                 // update the hand of the own player
                 this.player.set(event.data.player);
               } else {

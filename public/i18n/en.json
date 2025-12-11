@@ -4,7 +4,8 @@
     "newGame": "New Game",
     "joinGame": "Join Game",
     "enterSession": "Enter the session id",
-    "writeSession": "Write a session id"
+    "writeSession": "Write a session id",
+    "name": "Your name"
   },
   "app": {
     "ownTurn": "It's your turn",

@@ -12,7 +12,10 @@ const gameDataDto = z.object({
     player1: deckSingleCardDto.optional(),
     player2: deckSingleCardDto.optional(),
   }),
-  currentPlayerName: z.enum(PlayerEnum),
+  currentPlayerName: z.object({
+    enumName: z.enum(PlayerEnum),
+    userName: z.string(),
+  }),
   sessionIdentity: sessionIdentityDto,
   winner: playerDto.optional(),
 });

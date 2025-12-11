@@ -8,7 +8,8 @@ import { MatRadioGroupHarness } from '@angular/material/radio/testing';
 import { MatInputHarness } from '@angular/material/input/testing';
 import { MatButtonHarness } from '@angular/material/button/testing';
 import { PlayerEnum, SessionTypeEnum } from '../../models/enums';
-import { mockSessionId } from '../../models/mocks/mocks';
+import { mockSessionId, mockName } from '../../models/mocks/mocks';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('InitialScreenComponent', () => {
   let component: InitialScreenComponent;
@@ -19,7 +20,7 @@ describe('InitialScreenComponent', () => {
   beforeEach(async () => {
     mockSyncSvc = jasmine.createSpyObj('GameSyncService', ['sendSessionData']);
     await TestBed.configureTestingModule({
-      imports: [InitialScreenComponent],
+      imports: [InitialScreenComponent, TranslateModule.forRoot()],
       providers: [
         {
           provide: GameSyncService,
@@ -43,17 +44,24 @@ describe('InitialScreenComponent', () => {
     await radioGroup.checkRadioButton({ selector: '#new-game' });
     fixture.detectChanges();
     await fixture.whenStable();
+
     const newSessionTextField = await loader.getHarness(
       MatInputHarness.with({ selector: '#new-session-input' })
     );
     await newSessionTextField.setValue(mockSessionId);
+
+    const nameTextField = await loader.getHarness(
+      MatInputHarness.with({ selector: '#name-input' })
+    );
+    await nameTextField.setValue(mockName);
+
     const submitButton = await loader.getHarness(MatButtonHarness);
     await submitButton.click();
 
     expect(mockSyncSvc.sendSessionData).toHaveBeenCalledOnceWith({
       sessionId: mockSessionId,
       sessionType: SessionTypeEnum.New,
-      player: PlayerEnum.Player1,
+      player: { enumName: PlayerEnum.Player1, userName: mockName },
     });
   });
 
@@ -66,13 +74,19 @@ describe('InitialScreenComponent', () => {
       MatInputHarness.with({ selector: '#join-session-input' })
     );
     await joinSessionTextField.setValue(mockSessionId);
+
+    const nameTextField = await loader.getHarness(
+      MatInputHarness.with({ selector: '#name-input' })
+    );
+    await nameTextField.setValue('testName2');
+
     const submitButton = await loader.getHarness(MatButtonHarness);
     await submitButton.click();
 
     expect(mockSyncSvc.sendSessionData).toHaveBeenCalledOnceWith({
       sessionId: mockSessionId,
       sessionType: SessionTypeEnum.Join,
-      player: PlayerEnum.Player2,
+      player: { enumName: PlayerEnum.Player2, userName: 'testName2' },
     });
   });
 });

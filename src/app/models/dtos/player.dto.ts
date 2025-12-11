@@ -1,10 +1,10 @@
 import { z } from 'zod';
 import { deckSingleCardDto } from './deckSingleCard.dto';
-import { PlayerEnum } from '../enums';
+import { playerName } from './playerName.dto';
 
 export const playerDto = z.object({
   hand: z.array(deckSingleCardDto),
-  name: z.enum(PlayerEnum),
+  name: playerName,
   isOwnTurn: z.boolean(),
   inThisTrickPlayedCard: deckSingleCardDto.optional(),
   points: z.number(),

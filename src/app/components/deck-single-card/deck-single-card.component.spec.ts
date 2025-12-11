@@ -41,7 +41,7 @@ describe('DeckSingleCardComponent', () => {
   it('should not open the dialog, when it is not the own turn to play', () => {
     const anotherPlayer = {
       ...mockPlayer,
-      name: PlayerEnum.Player2,
+      name: { enumName: PlayerEnum.Player2, userName: 'mockName2' },
     };
     fixture.componentRef.setInput('player', anotherPlayer);
     fixture.detectChanges();

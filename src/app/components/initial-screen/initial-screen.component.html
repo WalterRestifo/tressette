@@ -71,6 +71,10 @@
         />
       </mat-form-field>
       }
+      <mat-form-field>
+        <mat-label>{{ "initialScreen.name" | translate }}</mat-label>
+        <input matInput [formControl]="nameControl" id="name-input" />
+      </mat-form-field>
       <button matButton="elevated" (click)="onSubmit()">Play</button>
     </form>
   </div>

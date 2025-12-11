@@ -1,5 +1,10 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -34,8 +39,16 @@ export class InitialScreenComponent {
   readonly sessionType = SessionTypeEnum;
   readonly sessionControl = new FormControl(SessionTypeEnum.New, {
     nonNullable: true,
+    validators: Validators.required,
   });
-  readonly sessionIdControl = new FormControl('', { nonNullable: true });
+  readonly nameControl = new FormControl('', {
+    nonNullable: true,
+    validators: Validators.required,
+  });
+  readonly sessionIdControl = new FormControl('', {
+    nonNullable: true,
+    validators: Validators.required,
+  });
   sessionSignal = toSignal(this.sessionControl.valueChanges, {
     initialValue: this.sessionControl.value,
   });
@@ -44,7 +57,6 @@ export class InitialScreenComponent {
       ? PlayerEnum.Player1
       : PlayerEnum.Player2;
   });
-
   form = new FormGroup({
     session: this.sessionControl,
     sessionId: this.sessionIdControl,
@@ -54,14 +66,16 @@ export class InitialScreenComponent {
     const sessionDto: SessionDto = {
       sessionId: this.sessionIdControl.value,
       sessionType: this.sessionControl.value,
-      player: this.playerSignal(),
+      player: {
+        enumName: this.playerSignal(),
+        userName: this.nameControl.value,
+      },
     };
 
     this.syncService.sendSessionData(sessionDto);
   }
 
   onLanguageChange(event: MatButtonToggleChange) {
-    console.log('event: ', event);
     this.translate.use(event.value);
   }
 }

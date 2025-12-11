@@ -1,6 +1,6 @@
 <h2>{{ "endScreen.gameOver" | translate }}</h2>
 @if(winner()?.name){
-<p>{{ winner()?.name }} {{ "endScreen.win" | translate }}!</p>
+<p>{{ winner()?.name?.userName }} {{ "endScreen.win" | translate }}!</p>
 } @else {
 <p>{{ "endScreen.noWinner" | translate }}</p>
 }

@@ -5,7 +5,7 @@ import { PlayerEnum } from '../../models/enums';
 @Injectable({ providedIn: 'root' })
 export class SessionIdentityService {
   sessionId = '';
-  player = PlayerEnum.Player1;
+  player = { enumName: PlayerEnum.Player1, userName: '' };
 
   set(sessionIdentityData: SessionIdentityDtoType) {
     this.sessionId = sessionIdentityData.sessionId;

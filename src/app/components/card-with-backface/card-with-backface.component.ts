@@ -10,7 +10,8 @@ import {
 import { DeckSingleCardComponent } from '../deck-single-card/deck-single-card.component';
 import { DeckSingleCardDtoType } from '../../models/dtos/deckSingleCard.dto';
 import { PlayerDtoType } from '../../models/dtos/player.dto';
-import { CardSuitEnum, PlayerEnum } from '../../models/enums';
+import { CardSuitEnum } from '../../models/enums';
+import { PlayerNameDtoType } from '../../models/dtos/playerName.dto';
 
 @Component({
   selector: 'card-with-backface',
@@ -22,7 +23,7 @@ export class CardWithBackfaceComponent {
   card = input<DeckSingleCardDtoType>();
   player = input.required<Signal<PlayerDtoType>>();
   leadingSuit = input<CardSuitEnum>();
-  currentPlayerName = input<PlayerEnum>();
+  currentPlayerName = input<PlayerNameDtoType>();
   opponentCardId: Signal<number | undefined>;
   isOpponentLastDrawnCard = input<boolean>();
 

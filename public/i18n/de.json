@@ -4,7 +4,8 @@
     "newGame": "Neues Spiel",
     "joinGame": "Spiel betreten",
     "enterSession": "Spielname eingeben",
-    "writeSession": "Spielname erstellen"
+    "writeSession": "Spielname erstellen",
+    "name": "Name erstellen"
   },
   "app": {
     "ownTurn": "Du bist dran",

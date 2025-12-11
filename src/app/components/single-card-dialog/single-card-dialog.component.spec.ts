@@ -5,10 +5,15 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { GameSyncService } from '../../services/game-sync/game-sync.service';
 import { SessionIdentityService } from '../../services/session-identity/session-identity.service';
 import { PlayerEnum } from '../../models/enums';
-import { mockCard, mockPlayer } from '../../models/mocks/mocks';
+import {
+  mockCard,
+  mockPlayer,
+  mockSessionData,
+} from '../../models/mocks/mocks';
 import { MatButtonHarness } from '@angular/material/button/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { HarnessLoader } from '@angular/cdk/testing';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('SingleCardDialogComponent', () => {
   let component: SingleCardDialogComponent;
@@ -20,19 +25,17 @@ describe('SingleCardDialogComponent', () => {
 
   let mockDialogData = { data: mockCard, player: mockPlayer };
 
-  let mockSession = { sessionId: 'testId', player: PlayerEnum.Player1 };
-
   beforeEach(async () => {
     mockDialogRef = jasmine.createSpyObj('MatDialogRef', ['close']);
     mockGameSyncSvc = jasmine.createSpyObj('GameSyncService', ['playCard']);
     mockSessionIdentitySvc = jasmine.createSpyObj('SessionIdentityService', [
       'get',
     ]);
-    mockSessionIdentitySvc.get.and.returnValue(mockSession);
+    mockSessionIdentitySvc.get.and.returnValue(mockSessionData);
 
     mockDialogData;
     await TestBed.configureTestingModule({
-      imports: [SingleCardDialogComponent],
+      imports: [SingleCardDialogComponent, TranslateModule.forRoot()],
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: mockDialogData },
         { provide: MatDialogRef, useValue: mockDialogRef },
@@ -53,7 +56,7 @@ describe('SingleCardDialogComponent', () => {
 
   it('should submit the correct data', async () => {
     const playBtn = await loader.getHarness(
-      MatButtonHarness.with({ text: 'Play card' })
+      MatButtonHarness.with({ text: 'singleCardDialog.playCard' })
     );
 
     await playBtn.click();

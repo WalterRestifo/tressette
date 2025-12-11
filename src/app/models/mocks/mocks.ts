@@ -10,6 +10,9 @@ import {
   SessionTypeEnum,
 } from '../enums';
 
+export const mockName = 'mockName1';
+export const mockSessionId = 'mockSessionId';
+
 export let mockCard: DeckSingleCardDtoType = {
   gameValue: 1,
   numberValue: 1,
@@ -20,16 +23,14 @@ export let mockCard: DeckSingleCardDtoType = {
 
 export let mockPlayer: PlayerDtoType = {
   hand: [mockCard],
-  name: PlayerEnum.Player1,
+  name: { enumName: PlayerEnum.Player1, userName: mockName },
   isOwnTurn: true,
   points: 0,
 };
 
-export const mockSessionId = 'mockSessionId';
-
 export const mockSessionIdentity: SessionIdentityDtoType = {
   sessionId: mockSessionId,
-  player: PlayerEnum.Player1,
+  player: { enumName: PlayerEnum.Player1, userName: mockName },
 };
 
 export const mockGameData: GameDataDto = {
@@ -39,7 +40,7 @@ export const mockGameData: GameDataDto = {
     player1: mockCard,
     player2: undefined,
   },
-  currentPlayerName: PlayerEnum.Player1,
+  currentPlayerName: { enumName: PlayerEnum.Player1, userName: mockName },
   sessionIdentity: mockSessionIdentity,
   winner: undefined,
 };
@@ -47,5 +48,5 @@ export const mockGameData: GameDataDto = {
 export const mockSessionData: SessionDto = {
   sessionId: mockSessionId,
   sessionType: SessionTypeEnum.New,
-  player: PlayerEnum.Player1,
+  player: { enumName: PlayerEnum.Player1, userName: mockName },
 };

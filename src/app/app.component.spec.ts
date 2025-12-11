@@ -4,12 +4,13 @@ import { GameSyncService } from './services/game-sync/game-sync.service';
 import { SessionIdentityService } from './services/session-identity/session-identity.service';
 import { By } from '@angular/platform-browser';
 import { of } from 'rxjs';
-import { mockGameData, mockPlayer } from './models/mocks/mocks';
+import { mockPlayer } from './models/mocks/mocks';
 import { EndGameScreenComponent } from './components/end-game-screen/end-game-screen.component';
 import { InitialScreenComponent } from './components/initial-screen/initial-screen.component';
 import { RouterOutlet } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { DeckSingleCardComponent } from './components/deck-single-card/deck-single-card.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('AppComponent', () => {
   let mockGameSyncSvc: jasmine.SpyObj<GameSyncService>;
@@ -39,6 +40,7 @@ describe('AppComponent', () => {
         RouterOutlet,
         MatButtonModule,
         DeckSingleCardComponent,
+        TranslateModule.forRoot(),
       ],
       providers: [
         {
@@ -70,26 +72,26 @@ describe('AppComponent', () => {
     fixture.detectChanges();
 
     const winnerTag = fixture.debugElement.query(By.css('p')).nativeElement;
-    expect(winnerTag.textContent).toBe('There is no winner.');
+    expect(winnerTag.textContent).toBe('endScreen.noWinner');
   });
 
   it('should render the initial screen', () => {
     const heading = fixture.debugElement.query(By.css('h1')).nativeElement;
-    expect(heading.textContent).toBe('Tressette Online');
+    expect(heading.textContent).toBe(' initialScreen.title ');
   });
 
   it('should render the UI elements', () => {
-    component.player = mockPlayer;
+    component.player.set(mockPlayer);
     component.isGameInitialised = true;
     fixture.detectChanges();
 
     const turnTag = fixture.debugElement.query(By.css('h2')).nativeElement;
-    expect(turnTag.textContent).toBe("It's your turn");
+    expect(turnTag.textContent).toBe(' app.ownTurn ');
 
     const pointsTag = fixture.debugElement.query(
       By.css('#points')
     ).nativeElement;
-    expect(pointsTag.textContent).toBe('Your points: 0,0');
+    expect(pointsTag.textContent).toBe('app.points 0,0');
 
     const opponentsLastDrawnCard = fixture.debugElement.query(
       By.css('#opponents-last-drawn-card')
@@ -99,7 +101,7 @@ describe('AppComponent', () => {
     const quitBtn = fixture.debugElement.query(
       By.css('#quit-btn')
     ).nativeElement;
-    expect(quitBtn.textContent).toBe(' quit game ');
+    expect(quitBtn.textContent).toBe(' app.quitGame ');
 
     const cardListElements = fixture.debugElement.queryAll(By.css('li'));
     expect(cardListElements).toHaveSize(mockPlayer.hand.length);

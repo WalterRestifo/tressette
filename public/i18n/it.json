@@ -4,7 +4,8 @@
     "newGame": "Crea una nuova partita",
     "joinGame": "Partecipa ad una partita",
     "enterSession": "Codice della partita",
-    "writeSession": "Codice per la partita"
+    "writeSession": "Codice per la partita",
+    "name": "Nome"
   },
   "app": {
     "ownTurn": "E' il tuo turno",

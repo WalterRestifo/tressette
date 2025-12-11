@@ -5,6 +5,7 @@ import { GameSyncService } from '../../services/game-sync/game-sync.service';
 import { SessionIdentityService } from '../../services/session-identity/session-identity.service';
 import { mockPlayer } from '../../models/mocks/mocks';
 import { By } from '@angular/platform-browser';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('EndGameScreenComponent', () => {
   let component: EndGameScreenComponent;
@@ -19,7 +20,7 @@ describe('EndGameScreenComponent', () => {
     ]);
 
     await TestBed.configureTestingModule({
-      imports: [EndGameScreenComponent],
+      imports: [EndGameScreenComponent, TranslateModule.forRoot()],
       providers: [
         {
           provide: GameSyncService,
@@ -45,12 +46,12 @@ describe('EndGameScreenComponent', () => {
     fixture.componentRef.setInput('winner', mockPlayer);
     fixture.detectChanges();
     const winnerTag = fixture.debugElement.query(By.css('p')).nativeElement;
-    expect(winnerTag.textContent).toBe('PLAYER1 won!');
+    expect(winnerTag.textContent).toBe('mockName1 endScreen.win!');
   });
 
   it('should show that there is no winner, when the game is quitted before ending the game', () => {
     const winnerTag = fixture.debugElement.query(By.css('p')).nativeElement;
-    expect(winnerTag.textContent).toBe('There is no winner.');
+    expect(winnerTag.textContent).toBe('endScreen.noWinner');
   });
 
   it('should start a new game, when the button to play again is clicked', () => {
